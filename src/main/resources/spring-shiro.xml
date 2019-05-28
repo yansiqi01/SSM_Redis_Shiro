@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--1.配置自定义MyRealm-->
+    <bean id="myRealm" class="com.zking.shiro.MyRealm"></bean>
+
+    <!--2.配置SecurityManager安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
+    <!--3.配置shiro拦截器-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--加载管理器，拦截器需要加载一个安全管理器,SecurityManager 是整个Shiro框架的核心-->
+        <property name="securityManager" ref="securityManager"/>
+        <!--没有登陆的时候，跳转的这个页面-->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!--当没有权限的时候，跳转到这个Url-->
+        <property name="unauthorizedUrl"  value="nopermission"/>
+        <!--
+        配置filterChainDefinitions结合数据库校验权限
+        拦截url，这里就是配置拦截url。
+         -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--
+                anon表示可以不需要登录就可访问，
+                authc表示需要认证才能访问，
+                perms 表示需要该权限才能访问的页面
+                -->
+                /login = anon
+                /login.jsp = anon
+                /index.jsp = authc
+                /* = authc
+            </value>
+        </property>
+    </bean>
+
+</beans>
