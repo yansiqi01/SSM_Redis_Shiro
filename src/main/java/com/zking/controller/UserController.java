@@ -40,16 +40,9 @@ public class UserController {
     //测试缓存
     @RequestMapping("/redis")
     public String b(){
-//        User user = new User();
-//        user.setUname("aa");
-//        user.setUpwd("1233456");
-//        redisTemplateUtil.setString("user1","string1");
 
         System.out.println("数据打印："+redisTemplate.opsForValue().get("user1"));
-//        System.out.println("打印==========================");
-//
 //        System.out.println("缓存数据："+redisTemplateUtil.getString(KEY));
-//        System.out.println("end===========================");
 
 //        System.out.println("缓存数据:"+redisTemplate.opsForValue().get(KEY).toString());
 
