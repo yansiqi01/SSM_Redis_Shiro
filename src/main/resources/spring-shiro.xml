@@ -35,8 +35,8 @@
                 -->
                 /admin/** = anon
                 /login.jsp = anon
-                /index.jsp = authc
-                /* = authc
+                /index.jsp = anon
+                /admin/** = anon
             </value>
         </property>
     </bean>
