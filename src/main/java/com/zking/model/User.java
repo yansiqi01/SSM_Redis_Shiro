@@ -1,44 +1,17 @@
 package com.zking.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class User implements Serializable {
 
-    private Integer uid;
-    private String uname;
-    private String upwd;
+    private static final long serialVersionUID = 8640733153759382281L;
+    private Integer UserId;//用户ID
+    private String UserName;//用户姓名
+    private String UserPassword;//用户密码
+    private Deliveryspot deliveryspot;//外键(权限ID)
+    private Employee employee;//外键(员工ID)
 
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public String getUname() {
-        return uname;
-    }
-
-    public void setUname(String uname) {
-        this.uname = uname;
-    }
-
-    public String getUpwd() {
-        return upwd;
-    }
-
-    public void setUpwd(String upwd) {
-        this.upwd = upwd;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid=" + uid +
-                ", uname='" + uname + '\'' +
-                ", upwd='" + upwd + '\'' +
-                '}';
-    }
 }
