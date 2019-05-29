@@ -4,4 +4,13 @@
 
 <mapper namespace="com.zking.dao.UserMapper">
 
+    <!--使用redis二级缓存-->
+    <cache type="com.zking.redis.RedisCache"></cache>
+
+
+    <!--查询所有用户-->
+    <select id="getUsers" resultType="user">
+        select * from t_user;
+    </select>
+
 </mapper>
