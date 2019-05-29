@@ -51,4 +51,9 @@
         <property name="enableTransactionSupport" value="true"></property>
     </bean>
 
+
+    <bean id="redisCacheTransfer" class="com.zking.redis.RedisCacheTransfer">
+        <property name="jedisConnectionFactory" ref="jedisConnectionFactory"></property>
+    </bean>
+
 </beans>
