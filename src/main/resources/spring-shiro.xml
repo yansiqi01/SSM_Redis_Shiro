@@ -5,7 +5,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <!--1.配置自定义MyRealm-->
     <bean id="myRealm" class="com.zking.shiro.MyRealm"></bean>
 
