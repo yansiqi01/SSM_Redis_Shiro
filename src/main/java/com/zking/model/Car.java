@@ -13,7 +13,7 @@ public class Car implements Serializable {
     private  CarType carType;//外键（车类型ID）
     private  Double  carSize;//车容量
     private  Double carTonnage;//车吨位
-    private  String buyTiem;//购车时间
+    private  String buyTime;//购车时间
     private  String carLeavetime;//发车时间
     private  Integer carStateId;//车辆状态
     private  Line line;//外键(线路ID)
