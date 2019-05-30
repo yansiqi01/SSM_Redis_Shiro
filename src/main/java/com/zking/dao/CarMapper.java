@@ -7,13 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @date 2019-05-30 15:14
- * @author likai
- */
-@Service("CarMapper")
+@Service("carMapper")
 public interface CarMapper {
-
 
     /**
      * 查询所有的车辆信息
@@ -54,7 +49,6 @@ public interface CarMapper {
      * @return
      */
     int addCar(Car car);
-
 
 
 
