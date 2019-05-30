@@ -1,0 +1,27 @@
+[
+	{
+	"meunTitle":"商品管理",
+	"trees":[
+		 {"treeTitile":"添加商品","id":1,"url":"student.jsp"},
+		 {"treeTitile":"删除商品","id":2,"url":"student.jsp"},
+		 {"treeTitile":"修改商品","id":3,"url":"student.jsp"}
+		]
+	},
+	{
+	"meunTitle":"用户管理",
+	"trees":[
+		 {"treeTitile":"添加商品","id":4,"url":"student.jsp"},
+		 {"treeTitile":"删除商品","id":5,"url":"student.jsp"},
+		 {"treeTitile":"修改商品","id":6,"url":"student.jsp"}
+		]
+	},
+	{
+	"meunTitle":"订单管理",
+	"trees":[
+		 {"treeTitile":"添加商品","id":7,"url":"student.jsp"},
+		 {"treeTitile":"删除商品","id":8,"url":"student.jsp"},
+		 {"treeTitile":"修改商品","id":9,"url":"student.jsp"}
+		] 
+	}
+]
+
