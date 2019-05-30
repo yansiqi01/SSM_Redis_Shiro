@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>layout 后台大布局 - Layui</title>
+<title>物流后台管理系统</title>
 <link rel="stylesheet" href="layui/css/layui.css">
  <style type="text/css">
         #index-container,html,body{
@@ -169,11 +169,12 @@ layui.use('element', function(){
 //获取所有的菜单动态生成菜单===============================================================
 $.ajax({
       type:"post",
-      url:"json/test.json",
+      url:"userByPower",//请求接口
       dataType:"json",
       contentType : "application/json",//应用类型/json
-      success:function(data){
-          //先添加所有的主材单  
+      success:function(json){
+		  var data = $.parseJSON(json);//json转对象
+          //先添加所有的主材单
           $.each(data,function(i,obj){
               var content='<li class="layui-nav-item">';
               content+='<a href="javascript:;" class="site-demo-active">'+obj.meunTitle+'</a>';
@@ -185,14 +186,14 @@ $.ajax({
           element.init();
       },
       error:function(jqXHR){
-          aler("发生错误："+ jqXHR.status);
+          alert("发生错误："+ jqXHR.status);
       }
   });
   
   //组装子菜单的方法
   function loadchild(obj){  
 	  //alert(obj[0].treeTitile);
-      if(obj==null){  
+      if(obj==null){
           return;
       }
 
@@ -215,7 +216,6 @@ $.ajax({
           }); 
           content+='</dl>';
       }  
-      console.log(content);
       return content;
   };
   
@@ -337,11 +337,6 @@ $.ajax({
 });
 
 
-	  
-	  
-	  
-	
-  
 </script>
 </body>
 </html>

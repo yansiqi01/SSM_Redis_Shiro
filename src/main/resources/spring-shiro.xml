@@ -32,7 +32,7 @@
                 authc表示需要认证才能访问，
                 perms 表示需要该权限才能访问的页面
                 -->
-                /login = anon
+                /admin/adminLogin = anon
                 /login.jsp = anon
                 /index.jsp = anon
                 /admin/** = anon

@@ -23,5 +23,19 @@
 		 {"treeTitile":"修改商品","id":9,"url":"student.jsp"}
 		] 
 	}
+
+	,
+	{
+		"meunTitle":"配送单管理员管理",
+		"trees":{"treeTitile":"待开发功能...","id":9,"url":"index.jsp"},
+	},
+	{"trees":{"treeTitile":"待开发功能...","id":10,"url":"index.jsp"},"meunTitle":"员工管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":11,"url":"index.jsp"},"meunTitle":"配送单管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":12,"url":"index.jsp"},"meunTitle":"用户管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":13,"url":"index.jsp"},"meunTitle":"车辆管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":14,"url":"index.jsp"},"meunTitle":"线路管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":15,"url":"index.jsp"},"meunTitle":"订单管理"},
+	{"trees":{"treeTitile":"待开发功能...","id":16,"url":"index.jsp"},"meunTitle":"报表管理"}
 ]
+
 
