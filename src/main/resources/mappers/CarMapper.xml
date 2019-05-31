@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.CarMapper">
+
+    <!--使用redis二级缓存-->
+    <cache type="com.zking.redis.RedisCache"></cache>
+
+    <!--得到所有车辆信息-->
+    <!--根据车牌号模糊查询-->
+    <!--根据车辆状态查询-->
+    <resultMap id="cars" type="com.zking.model.Car">
+        <id property="carId" column="car_id" />
+        <result property="workNo" column="work_no"/>
+        <result property="carTonnage" column="car_tonnage"/>
+        <result property="carLeavetime" column="car_leavetime"/>
+        <association property="employee" javaType="com.zking.model.Employee">
+            <result property="EmpName" column="emp_name"/>
+            <result property="EmpTel" column="emp_tel"/>
+        </association>
+        <association property="line" javaType="com.zking.model.Line">
+            <result property="LineName" column="line_name"/>
+        </association>
+        <association property="carType" javaType="com.zking.model.CarType">
+            <result property="CarTypeName" column="cartype_name"/>
+        </association>
+    </resultMap>
+    <select id="getCars" resultMap="cars">
+        select a.car_id,a.work_no,a.car_tonnage,a.car_leavetime,b.line_name,c.emp_name,c.emp_tel,d.cartype_name
+        from car a,line b,employee c,cartype d
+        where a.line_id=b.line_id
+        AND a.emp_id=c.emp_id
+        and a.cartype_id = d.cartype_id
+        <if test="workNo != null">
+            and  a.work_no like "%"#{workNo}"%"
+        </if>
+        <if test="carStateId == 1 || carStateId == 2">
+            and a.carstate_id = #{carStateId}
+        </if>
+    </select>
+
+
+</mapper>

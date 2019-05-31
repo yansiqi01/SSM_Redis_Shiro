@@ -19,7 +19,7 @@
 		<form class="layui-form" action="">
 			<div class="layui-form-item">
 
-				<div class="layui-inline">
+				<!--<div class="layui-inline">
 				    <label class="layui-form-label">线路名称:</label>
 				    <div class="layui-input-block" style="width: 150px;">
 				     	<select name="city" lay-verify="required">
@@ -32,9 +32,16 @@
 				        	<option value="4">市内</option>
 				      	</select>
 				    </div>
-			    </div>
+			    </div>-->
 
-			    <div class="layui-inline">
+				<div class="layui-inline">
+					<label class="layui-form-label">车牌号:</label>
+					<div class="layui-input-block" style="width: 150px;">
+						<input type="text" name="title" placeholder="请输入车牌号" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+			    <!--<div class="layui-inline">
 				    <label class="layui-form-label" >线路类型:</label>
 				    <div class="layui-input-block" style="width: 150px;">
 				     	<select name="city" lay-verify="required">
@@ -46,7 +53,7 @@
 				        	<option value="4">线路名称</option>
 				      	</select>
 				    </div>
-			    </div>
+			    </div>-->
 
 				<!-- 查询按钮组 -->
 			    <div class="layui-inline">
@@ -58,14 +65,14 @@
 						<i class="layui-icon">&#x1002;</i> 重置
 					</button>
 
-					<button id="btnMore" type="button" class="layui-btn btnOther">
+					<!--<button id="btnMore" type="button" class="layui-btn btnOther">
 						<i class="layui-icon">&#xe671;</i>更多
-					</button>
+					</button>-->
 				</div>
 
 			</div>
 
-			<!-- 隐藏其它查询条件 -->
+			<!--&lt;!&ndash; 隐藏其它查询条件 &ndash;&gt;
 			<div id="hQuery" class="layui-form-item" style="display: none;">
 
 				<div class="layui-inline">
@@ -75,21 +82,21 @@
 				    </div>
 			    </div>
 
-			    <div class="layui-inline">
+			   &lt;!&ndash; <div class="layui-inline">
 				    <label class="layui-form-label" >司机:</label>
 				    <div class="layui-input-block" style="width: 150px;">
 				     	<input type="text" name="title" placeholder="请输入司机" autocomplete="off" class="layui-input">
 				    </div>
-			    </div>
+			    </div>&ndash;&gt;
 
-			    <div class="layui-inline">
+			   &lt;!&ndash; <div class="layui-inline">
 				    <label class="layui-form-label">承运商:</label>
 				    <div class="layui-input-block" style="width: 150px;">
 				     	<input type="text" name="title" placeholder="请输入承运商" autocomplete="off" class="layui-input">
 				    </div>
-			    </div>
+			    </div>&ndash;&gt;
 			
-			</div>
+			</div>-->
 
 			<!-- 操作按扭组 -->
 			<div class="layui-form-item" style="padding-left: 11px;height: 30px;">
@@ -104,7 +111,7 @@
 			<table class="layui-table">
 				<colgroup>
 					<col width="50">
-				    <col width="60">
+				    <!--<col width="60">-->
 				    <col width="87">
 				    <col width="87">
 				    <col width="98">
@@ -121,7 +128,7 @@
 				    <tr>
 				    	<th><input type="checkbox" name="check" lay-skin="primary"></th>
 				    	<th>序号</th>
-				      	<th>线路类型</th>
+				      	<!--<th>线路类型</th>-->
 				      	<th>线路名称</th>
 				      	<th>车牌号</th>
 					  	<th>承运商</th>
@@ -138,7 +145,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>1</td>
-				      	<td>全部</td>
+				      	<!--<td>全部</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10001</td>
 				      	<td>宅急送</td>
@@ -153,7 +160,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>2</td>
-				      	<td>干线</td>
+				      <!--	<td>干线</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10002</td>
 				      	<td>宅急送</td>
@@ -168,7 +175,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>3</td>
-				      	<td>全部</td>
+				      <!--	<td>全部</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10001</td>
 				      	<td>宅急送</td>
@@ -183,7 +190,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>4</td>
-				      	<td>干线</td>
+				      <!--	<td>干线</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10002</td>
 				      	<td>宅急送</td>
@@ -198,7 +205,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>5</td>
-				      	<td>全部</td>
+				      	<!--<td>全部</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10001</td>
 				      	<td>宅急送</td>
@@ -213,7 +220,7 @@
 				    <tr>
 				      	<td><input type="checkbox" name="check" lay-skin="primary"></td>
 				      	<td>6</td>
-				      	<td>干线</td>
+				      	<!--<td>干线</td>-->
 				      	<td>线路名称</td>
 				      	<td>湘A10002</td>
 				      	<td>宅急送</td>
