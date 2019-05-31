@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.zking.dao.UserMapper">
+<mapper namespace="com.zking.dao.PowerMapper">
 
     <!--使用redis二级缓存-->
     <cache type="com.zking.redis.RedisCache"></cache>
 
-    <!--查询所有用户-->
-    <select id="getUsers" resultType="user">
-        select * from t_user;
-    </select>
-
     <select id="getPowerByUserId" resultType="power">
         select distinct d.* from t_user_position a,t_position b,t_position_power c,t_power d where a.user_id=#{uid} and c.position_id=a.position_id and d.power_id=c.power_id
+    </select>
+
+
+    <select id="getPowerByUserTreeAndFid" resultType="power">
+        select * from t_power where power_fid=#{fid}
     </select>
 
 </mapper>

@@ -1,6 +1,11 @@
 package com.zking.controller;
+import com.google.gson.Gson;
+import com.zking.model.Deliveryspot;
+import com.zking.model.Employee;
 
+import com.zking.model.User;
 import com.zking.redis.RedisTemplateUtil;
+import com.zking.service.PowerService;
 import com.zking.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,11 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.security.auth.Subject;
+import java.util.Map;
 
 @Controller
+@RequestMapping("/admin")
 public class UserController {
 
     private static final String KEY = "a";
@@ -22,6 +31,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PowerService powerService;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -37,6 +49,8 @@ public class UserController {
     @RequestMapping("/test")
     public String test(){
 
+        User user = new User();
+        System.out.println("用户数据：===================================="+userService.getUsers());
         System.out.println("测试成功。。。");
         return userService.getUsers()+"";
     }
@@ -74,4 +88,41 @@ public class UserController {
 //        return users.toString();
         return null;
     }
+
+
+    /**
+     * 根据用户id查询对应的权限菜单
+     */
+    @ResponseBody
+    @RequestMapping("/userByPower")
+    public String getPower(){
+
+        //定义一个userId
+        int uid = 1;
+        return new Gson().toJson(powerService.getPowerByUserId(uid));
+    }
+
+
+
+
+    @RequestMapping(value = "/adminLogin",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> login(User user,Map map){
+        System.out.println("后台接收数据:"+user);
+        map.put("code",1);
+        map.put("msg",1);
+        return map;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
