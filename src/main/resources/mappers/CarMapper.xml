@@ -15,6 +15,7 @@
         <result property="workNo" column="work_no"/>
         <result property="carTonnage" column="car_tonnage"/>
         <result property="carLeavetime" column="car_leavetime"/>
+        <result property="carStateId" column="carstate_id"/>
         <association property="employee" javaType="com.zking.model.Employee">
             <result property="EmpName" column="emp_name"/>
             <result property="EmpTel" column="emp_tel"/>
@@ -27,7 +28,7 @@
         </association>
     </resultMap>
     <select id="getCars" resultMap="cars">
-        select a.car_id,a.work_no,a.car_tonnage,a.car_leavetime,b.line_name,c.emp_name,c.emp_tel,d.cartype_name
+        select a.car_id,a.work_no,a.car_tonnage,a.carstate_id,a.car_leavetime,b.line_name,c.emp_name,c.emp_tel,d.cartype_name
         from car a,line b,employee c,cartype d
         where a.line_id=b.line_id
         AND a.emp_id=c.emp_id
@@ -39,6 +40,21 @@
             and a.carstate_id = #{carStateId}
         </if>
     </select>
+
+    <!--得到所有的车辆类型，供添加车辆时选择车辆类型-->
+    <select id="getCarTypes" resultType="CarType">
+        select cartype_id,cartype_name from cartype
+    </select>
+
+    <!--根据车辆ID修改车辆状态-->
+    <update id="updateCarState">
+
+    </update>
+
+    <!--增加车辆信息-->
+    <insert id="addCar">
+        insert into car()
+    </insert>
 
 
 </mapper>

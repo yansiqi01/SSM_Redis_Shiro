@@ -1,6 +1,7 @@
 package com.zking.controller;
 
 import com.zking.model.Car;
+import com.zking.model.CarType;
 import com.zking.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,20 @@ public class CarController {
             System.out.println(car);
         }
         return cars;
+    }
+
+    /**
+     * 得到所有的车辆类型，供添加车辆时选择车辆类型
+     * @return
+     */
+    @RequestMapping("/getCarTypes")
+    @ResponseBody
+    List<CarType> getCarTypes(){
+        List<CarType> carTypes = carService.getCarTypes();
+        for (CarType carType : carTypes) {
+            System.out.println(carType);
+        }
+        return carTypes;
     }
 
 }
