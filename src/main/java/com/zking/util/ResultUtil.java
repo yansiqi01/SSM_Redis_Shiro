@@ -7,6 +7,8 @@ public class ResultUtil {
     private String count;//总行数
     private Object data;//响应数据
 
+    public ResultUtil(){}
+
     public Integer getCode() {
         return code;
     }
@@ -42,6 +44,10 @@ public class ResultUtil {
     public ResultUtil(Integer code, Object msg) {
         this.code = code;
         this.msg = msg;
+    }
+
+    public ResultUtil(Integer code){
+        this.code = code;
     }
 
     public ResultUtil(Integer code, Object msg, Object data) {

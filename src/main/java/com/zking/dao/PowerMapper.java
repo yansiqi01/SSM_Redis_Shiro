@@ -26,4 +26,7 @@ public interface PowerMapper {
      */
     List<Power> getPowerByUserTreeAndFid(@Param("fid")Integer fid);
 
+
+
+
 }

@@ -11,7 +11,7 @@ public class User implements Serializable {
     private Integer userId;//用户ID
     private String userName;//用户姓名
     private String userPassword;//用户密码
-    private Deliveryspot deliveryspot;//外键(权限ID)
+    private Deliveryspot deliveryspot;//外键(配送的id)
     private Employee employee;//外键(员工ID)
 
 }
