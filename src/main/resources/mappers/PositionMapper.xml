@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.PositionMapper">
+
+
+    <!--获取角色信息  超级管理员除外-->
+    <select id="getRoles" resultType="position">
+        select * from t_position where position_id!=1;
+    </select>
+    
+    
+    <!--添加用户的角色信息-->
+    <insert id="addRoleandPostion">
+        insert into t_user_position (user_id,position_id) values(#{uid},#{positionid})
+    </insert>
+
+
+    <!--根据用户id查询用户的角色信息-->
+    <select id="getRolesByUserId" resultType="position">
+        SELECT c.* from t_user a,t_user_position b,t_position c where  b.user_id=a.user_id AND b.position_id=c.position_id AND a.user_id=#{uid}
+    </select>
+    
+   
+
+</mapper>

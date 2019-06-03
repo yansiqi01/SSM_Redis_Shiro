@@ -4,16 +4,92 @@
 
 <mapper namespace="com.zking.dao.UserMapper">
 
+    <!--查询所有用户 1对1员工信息-->
+    <resultMap id="users" type="user">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPassword" column="user_password"/>
+        <!--外键(所属配送点)-->
+        <association property="deliveryspot" javaType="deliveryspot">
+            <id property="deliveryspotId" column="deliveryspot_id"/>
+        </association>
+        <association property="employee" javaType="employee">
+            <id property="empId" column="emp_id"/>
+            <result property="empName" column="emp_name"></result>
+            <result property="empSex" column="emp_sex"></result>
+            <result property="empAddress" column="emp_address"></result>
+            <result property="empTel" column="emp_tel"></result>
+            <result property="empWorkTime" column="emp_workTime"></result>
+            <result property="empSalary" column="emp_salary"></result>
+            <result property="empCardId" column="emp_cardId"></result>
+            <!--外键(职位ID)-->
+
+            <!--外键(所属配送点)-->
+
+            <!--任职状态-->
+            <result property="empFiag" column="emp_fiag"></result>
+
+        </association>
+    </resultMap>
+
     <!--使用redis二级缓存-->
     <cache type="com.zking.redis.RedisCache"></cache>
 
     <!--查询所有用户-->
-    <select id="getUsers" resultType="user">
-        select * from t_user;
+    <select id="getUsers" resultMap="users">
+        select * from t_user a,employee b where b.emp_id=a.emp_id
+        <if test="userName!=null">
+            and user_name like '%${userName}%'
+        </if>
+        <if test="userPassword!=null">
+            and user_password like '%${userPassword}%'
+        </if>
     </select>
 
     <select id="getPowerByUserId" resultType="power">
         select distinct d.* from t_user_position a,t_position b,t_position_power c,t_power d where a.user_id=#{uid} and c.position_id=a.position_id and d.power_id=c.power_id
     </select>
+
+
+    <!--根据用户名获取用户信息-->
+    <select id="getUserByName" resultType="user">
+        select * from t_user where user_name=#{uname}
+    </select>
+    
+    
+    <!--添加一个用户-->
+    <insert id="addUserEmp" useGeneratedKeys="true" keyProperty="userId">
+        insert into t_user (user_name,user_password,deliveryspot_id,emp_id)
+         values (#{userName},#{userPassword}, #{deliveryspot.deliveryspotId}, #{employee.empId})
+    </insert>
+
+
+    <!--删除用户-->
+    <delete id="deleteUserByUid">
+        delete a,b from t_user a,employee b where a.user_id=#{uid} and a.emp_id=b.emp_id
+    </delete>
+
+
+    <!--根据用户id获取用户信息-->
+    <select id="getUserByUidAndEmp" resultMap="users">
+        select * from t_user a,employee b,tb_deliveryspot c where  b.emp_id=a.emp_id AND c.deliveryspot_id=a.deliveryspot_id AND a.user_id=#{uid}
+    </select>
+
+
+    <!--修改 用户信息以及员工信息-->
+    <update id="updateUserAndEmp">
+        UPDATE t_user a,employee b SET a.user_name=#{user.userName},a.user_password=#{user.userPassword},a.deliveryspot_id=#{user.deliveryspot.deliveryspotId},b.emp_name=#{employee.empName},b.emp_sex=#{employee.empSex},b.emp_address=#{employee.empAddress},b.emp_tel=#{employee.empTel},b.emp_workTime=#{employee.empWorkTime},b.emp_salary=#{employee.empSalary},b.emp_cardId=#{employee.empCardId},b.deliveryspot_id=#{employee.deliveryspot.deliveryspotId},b.emp_fiag=#{employee.empFiag} where b.emp_id=a.emp_id AND a.user_id=#{user.userId}
+    </update>
+
+
+     <!--批量删除根据用户id-->
+    <delete id="deleteUsers" parameterType="List">
+         delete a,b from t_user a,employee b where a.user_id in
+          <foreach collection="list" item="id" open="(" separator="," close=")">
+              #{id}
+          </foreach>
+          and a.emp_id=b.emp_id
+    </delete>
+
 
 </mapper>

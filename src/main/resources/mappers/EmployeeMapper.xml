@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.EmployeeMapper">
+
+    
+    <!--添加员工-->
+    <insert id="addEmp" keyProperty="EmpId" useGeneratedKeys="true" parameterType="employee">
+        insert into employee (emp_name,emp_sex,emp_address,emp_tel,emp_workTime,emp_salary,emp_cardId,deliveryspot_id,emp_fiag)
+        values (#{empName},#{empSex},#{empAddress},#{empTel},#{empWorkTime},#{empSalary},#{empCardId},#{deliveryspot.deliveryspotId},#{empFiag});
+    </insert>
+
+
+    <!--根据员工id查找员工信息-->
+    <select id="getEmpById" resultType="employee">
+        select * from employee where emp_id=#{id};
+    </select>
+    
+
+</mapper>
