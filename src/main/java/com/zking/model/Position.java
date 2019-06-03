@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Position  implements Serializable {
-    private Integer PositionId;
-    private String PositionName;
+    private static final long serialVersionUID = -5850739900661205246L;
+    private Integer positionId;
+    private String positionName;
 }
