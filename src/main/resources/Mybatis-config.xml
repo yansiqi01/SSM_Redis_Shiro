@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+
+
     <settings>
         <!--启用log日志打印sql-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
@@ -15,13 +17,31 @@
         <setting name="cacheEnabled" value="true"/>
         <!--数据库命名转驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+
     </settings>
-    
+
+
+
     <!--设置别名-->
     <typeAliases>
         <package name="com.zking.model"/>
     </typeAliases>
 
+    <!--添加持久层插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页插件参数：
+            Dialect:数据库方言，包括Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库
+            不写则pageHelper自动检测
+            -->
+            <!--<property name="dialect" value="mysql"/>-->
+            <!--
+            设置为true时，使用RowBounds分页会进行count查询
+            -->
+            <property name="rowBoundsWithCount" value="true"/>
+        </plugin>
+    </plugins>
 
     <!--加载mapper映射文件-->
     <!--<mappers>
