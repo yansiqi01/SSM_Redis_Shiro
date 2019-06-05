@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             usermap.put("EmpSalary",user.getEmployee().getEmpSalary());
             ls.add(usermap);
         }
-
+        System.out.println(ls.toString());
         map.put("code",0);//状态码
         map.put("count",page.getTotal());//总行数
         map.put("data",ls);//数据

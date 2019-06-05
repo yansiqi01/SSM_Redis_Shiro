@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.LineMapper">
+
+    <!--使用redis二级缓存-->
+    <!--<cache type="com.zking.redis.RedisCache"></cache>-->
+
+    <!--得到所有的线路及配送点信息基本信息-->
+    <resultMap id="lineAll" type="line">
+        <id property="LineId" column="line_id"/>
+        <result property="LineName" column="line_name"/>
+        <result property="LineTh" column="line_th"/>
+        <association property="linetaile" javaType="linetaile">
+            <association property="deliveryspot" javaType="deliveryspot">
+                <result property="deliveryspotName" column="deliveryspot_name"/>
+                <result property="deliveryspotProvince" column="deliveryspot_province"/>
+                <result property="deliveryspotCity" column="deliveryspot_city"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="getLineAndDeliveryspot" resultMap="lineAll">
+        select a.line_id,a.line_name,a.line_th,c.deliveryspot_name,c.deliveryspot_province,c.deliveryspot_city
+        from line a,linetaile b,tb_deliveryspot c
+        where a.line_id = b.line_id
+        and b.deliveryspot_id = c.deliveryspot_id
+    </select>
+
+    <!--根据线路id删除-->
+    <delete id="delLine">
+        delete from line where line_id = #{LineId}
+    </delete>
+
+    <!--根据线路id删除线路基本信息-->
+    <delete id="delLinetaile">
+        delete from linetaile where line_id = #{LineId}
+    </delete>
+
+    <!--增加一条线路-->
+    <insert id="addLine" useGeneratedKeys="true" keyProperty="LineId">
+        insert into line(line_name,line_th) values (#{LineName},#{LineTh})
+    </insert>
+
+    <!--增加一条线路基本信息-->
+    <insert id="addLinetaile">
+        insert into linetaile(line_id,deliveryspot_id) values (#{line.LineId},#{deliveryspot.deliveryspotId})
+    </insert>
+
+</mapper>

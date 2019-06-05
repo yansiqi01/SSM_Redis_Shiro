@@ -1,10 +1,12 @@
 package com.zking.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
 @Data
+@Service
 public class Deliveryspot  implements Serializable {
     private static final long serialVersionUID = -8211690916446009897L;
     private Integer deliveryspotId;//配送路线
