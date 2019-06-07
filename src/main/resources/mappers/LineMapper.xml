@@ -14,6 +14,7 @@
         <result property="LineTh" column="line_th"/>
         <association property="linetaile" javaType="linetaile">
             <association property="deliveryspot" javaType="deliveryspot">
+                <result property="deliveryspotId" column="deliveryspot_id"/>
                 <result property="deliveryspotName" column="deliveryspot_name"/>
                 <result property="deliveryspotProvince" column="deliveryspot_province"/>
                 <result property="deliveryspotCity" column="deliveryspot_city"/>
@@ -21,10 +22,13 @@
         </association>
     </resultMap>
     <select id="getLineAndDeliveryspot" resultMap="lineAll">
-        select a.line_id,a.line_name,a.line_th,c.deliveryspot_name,c.deliveryspot_province,c.deliveryspot_city
+        select a.line_id,a.line_name,a.line_th,c.deliveryspot_name,c.deliveryspot_province,c.deliveryspot_city,c.deliveryspot_id
         from line a,linetaile b,tb_deliveryspot c
         where a.line_id = b.line_id
         and b.deliveryspot_id = c.deliveryspot_id
+        <if test="LineName!=null">
+            and a.line_name like '%${LineName}%'
+        </if>
     </select>
 
     <!--根据线路id删除-->
@@ -46,5 +50,16 @@
     <insert id="addLinetaile">
         insert into linetaile(line_id,deliveryspot_id) values (#{line.LineId},#{deliveryspot.deliveryspotId})
     </insert>
+
+    <!--修改线路-->
+    <update id="editLineByLineID">
+        UPDATE line SET line_name=#{line.LineName} where line_id=#{LineId}
+    </update>
+
+    <!--修改线路基本信息配送点-->
+    <update id="editLinetaileByLineID">
+        UPDATE linetaile SET deliveryspot_id=#{deliveryspot.deliveryspotId} where line_id=#{LineId}
+    </update>
+
 
 </mapper>

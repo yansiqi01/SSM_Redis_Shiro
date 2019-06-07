@@ -50,15 +50,15 @@ public class LineController {
 
     @ResponseBody
     @RequestMapping("/getLines")
-    Map<String,Object> getLines(@Param("page") int page,@Param("limit") int limit){
-        //接受前台分页参数
-        //System.out.println("第几页"+page+"=====每页多少条："+limit);
+    Map<String,Object> getLines(@Param("page") Integer page,@Param("limit") Integer limit,HttpServletRequest request){
+        String search = request.getParameter("search");//查询参数
+        line.setLineName(search);
         //用来返回最后的map
         Map<String,Object> lineMaps = new HashMap<>();
         //分页
         Page pageLine = PageHelper.startPage(page, limit);
         //得到所有的信息
-        List<Line> lineAndDeliveryspot = lineService.getLineAndDeliveryspot();
+        List<Line> lineAndDeliveryspot = lineService.getLineAndDeliveryspot(line);
         //new一个新集合用来装map集合，因为map集合的key重复的话会覆盖，
         List<Map<String,Object>> ls = new ArrayList<>();
         for (Line line : lineAndDeliveryspot) {
@@ -67,6 +67,7 @@ public class LineController {
             maps.put("LineId",line.getLineId());
             maps.put("LineName",line.getLineName());
             maps.put("LineTh",line.getLineTh());
+            maps.put("deliveryspotId",line.getLinetaile().getDeliveryspot().getDeliveryspotId());
             maps.put("deliveryspotName",line.getLinetaile().getDeliveryspot().getDeliveryspotName());
             maps.put("deliveryspotProvince",line.getLinetaile().getDeliveryspot().getDeliveryspotProvince());
             maps.put("deliveryspotCity",line.getLinetaile().getDeliveryspot().getDeliveryspotCity());
@@ -116,17 +117,23 @@ public class LineController {
         lineService.delLinetaile(Integer.parseInt(lineId));
     }
 
+    /**
+     * 增加线路及基本信息
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/addLine")
-    void addLine(HttpServletRequest request){
+    int addLine(HttpServletRequest request){
         System.out.println("执行增加方法++++++++++++++++++++");
-        String lineName = request.getParameter("lineName");
+        String begin = request.getParameter("begin");
+        String end = request.getParameter("end");
         String lineTH = request.getParameter("lineTH");
         String deliveryspotId = request.getParameter("deliveryspot");
-        System.out.println("线路名称："+lineName+"==里程："+lineTH+"==配送点："+deliveryspot);
+        System.out.println("线路名称："+begin+end+"==里程："+lineTH+"==配送点："+deliveryspot);
 
         //线路的名称和里程
-        line.setLineName(lineName);
+        line.setLineName(begin+"-"+end);
         line.setLineTh(Double.parseDouble(lineTH));
         System.out.println(line);
 
@@ -139,9 +146,36 @@ public class LineController {
         linetaile.setDeliveryspot(deliveryspot);
         System.out.println(linetaile);
 
-        int i = lineService.addLine(line);
+        lineService.addLine(line);
         linetaile.setLine(line);
-        int i1 = lineService.addLinetaile(linetaile);
-        System.out.println("增加线路："+i+"==增加线路基本信息"+i1);
+        int i = lineService.addLinetaile(linetaile);
+        return  i;
     }
+
+    /**
+     * 修改线路信息及线路的配送点
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/editLineAndLinetaile")
+    int editLineAndLinetaile(HttpServletRequest request){
+        String lineID = request.getParameter("lineID");
+        String begin = request.getParameter("begin");
+        String end = request.getParameter("end");
+        String lineTH = request.getParameter("lineTH");
+        String deliveryspotId = request.getParameter("deliveryspot");
+        System.out.println("线路ID:"+lineID+"线路名称："+begin+end+"==里程："+lineTH+"==配送点："+deliveryspotId);
+
+        line.setLineName(begin+"-"+end);
+        line.setLineTh(Double.parseDouble(lineTH));
+
+        linetaile.setLinetaileId(Integer.parseInt(deliveryspotId));
+
+        lineService.editLineByLineID(Integer.parseInt(lineID),line);
+        int i = lineService.editLinetaileByLineID(Integer.parseInt(lineID), linetaile);
+
+        return i;
+    }
+
 }

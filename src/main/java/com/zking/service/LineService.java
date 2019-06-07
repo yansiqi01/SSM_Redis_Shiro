@@ -17,7 +17,7 @@ public interface LineService {
      * 得到所有的线路及配送点信息基本信息
      * @return
      */
-    List<Line> getLineAndDeliveryspot();
+    List<Line> getLineAndDeliveryspot(Line line);
 
     /**
      * 根绝线路ID删除
@@ -46,4 +46,20 @@ public interface LineService {
      * @return
      */
     int addLinetaile(Linetaile linetaile);
+
+    /**
+     * 修改线路信息
+     * @param line
+     * @param line
+     * @return
+     */
+    int editLineByLineID(Integer lineID,Line line);
+
+    /**
+     * 修改线路基本信息的配送点
+     * @param lineID
+     * @param linetaile
+     * @return
+     */
+    int editLinetaileByLineID(Integer lineID,Linetaile linetaile);
 }

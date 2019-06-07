@@ -14,8 +14,8 @@
 <div style="margin-bottom: 5px;">
 
     <!-- 示例-970 -->
-    <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
-
+    <%--<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>--%>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 </div>
 
 <div class="layui-btn-group demoTable">
@@ -28,7 +28,7 @@
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{field:'LineId',  sort: true, fixed: true}">ID</th>
+        <th lay-data="{field:'LineId',  sort: true, fixed: true}">序号</th>
         <th lay-data="{field:'LineName', }">线路名称</th>
         <th lay-data="{field:'LineTh',  sort: true}">里程</th>
         <th lay-data="{field:'deliveryspotName',}">配送点名称</th>
@@ -58,10 +58,8 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作'+data.LineId);
-            } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+             if(obj.event === 'del'){
+                layer.confirm('真的删除这条线路吗', function(index){
                     $.ajax({
                         url:'/delLine',
                         type:'post',
@@ -72,14 +70,35 @@
                             obj.del();
                         },
                         error:function () {
-                            obj.del;
+                            obj.del();
                         }
                     })
                     layer.close(index);
                 });
-            } /*else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
-            }*/
+            } else if(obj.event === 'edit'){
+                var open= layer.open({
+                    type: 2,
+                    title:"修改线路",
+                    closeBtn: 1,
+                    skin: 'layui-layer-rim',
+                    closeBtn: true,
+                    shift: 2,
+                    area: ['700px', '600px'],
+                    shadeClose: true,
+                    btnAlign: 'c',
+                    content:'/admin/editLine.jsp',
+                    success:function (layero,index) {
+                        var strs = new Array();
+                        strs = data.LineName.split("-");
+                        var body = layer.getChildFrame("body",index);
+                        body.find("#")
+                        body.find('#begin').val(strs[0]);
+                        body.find('#end').val(strs[1]);
+                        body.find('#deliveryspot').val(data.deliveryspotName);
+                        body.find('#lineTH').val(data.LineTh);
+                    }
+                });
+            }
         });
 
         var $ = layui.$, active = {

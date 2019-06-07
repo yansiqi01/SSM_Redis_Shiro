@@ -1,7 +1,5 @@
 package com.zking.test;
 
-import com.zking.model.Car;
-import com.zking.model.CarType;
 import org.junit.Test;
 
 /**
@@ -13,4 +11,5 @@ public class CarDataTest {
     public void t1(){
 
     }
+
 }

@@ -28,8 +28,8 @@ public class LineServiceImpl implements LineService {
      * @return
      */
     @Override
-    public List<Line> getLineAndDeliveryspot() {
-        return lineMapper.getLineAndDeliveryspot();
+    public List<Line> getLineAndDeliveryspot(Line line) {
+        return lineMapper.getLineAndDeliveryspot(line);
     }
 
     /**
@@ -75,4 +75,30 @@ public class LineServiceImpl implements LineService {
     public int addLinetaile(Linetaile linetaile) {
         return lineMapper.addLinetaile(linetaile);
     }
+
+    /**
+     * 修改线路信息
+     *
+     * @param lineID
+     * @param line
+     * @return
+     */
+    @Override
+    public int editLineByLineID(Integer lineID, Line line) {
+        return lineMapper.editLineByLineID(lineID,line);
+    }
+
+    /**
+     * 修改线路基本信息的配送点
+     *
+     * @param lineID
+     * @param linetaile
+     * @return
+     */
+    @Override
+    public int editLinetaileByLineID(Integer lineID, Linetaile linetaile) {
+        return lineMapper.editLinetaileByLineID(lineID,linetaile);
+    }
+
+
 }

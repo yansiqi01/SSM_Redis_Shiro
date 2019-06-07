@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="layui/css/layui.css"  media="all">
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script type="text/javascript">
+        //父页面传值
+        function child(data){
+            //alert(data.deliveryspotId+data.deliveryspotName);
+        }
         $(function(){
             $.ajax({
                 url:'/getDeliveryspotNames',
@@ -23,22 +27,29 @@
                 success:function(data){
                     //console.log(data);
                     var html="";
-                    $.each(data, function(n, value){
-                        html+='<option value="'+n+'">'+value+'</option>';
-                        //console.log(n+"=="+value)
-                    });
+                    if(data.deliveryspotId!=null){
+                        html+='<option value="'+data.deliveryspotId+'">'+data.deliveryspotName+'</option>';
+                    }
+                    else{
+                        $.each(data, function(n, value){
+                            html+='<option value="'+n+'">'+value+'</option>';
+                            //console.log(n+"=="+value)
+                        });
+                    }
                     $('#deliveryspot').html(html);
                 }
             });
         });
     </script>
 </head>
-<body>
+<body id="body">
 <form class="layui-form" action="" name="tab">
+    <%--隐藏线路ID--%>
+    <input type="hidden" id="lineID" value="">
     <div class="layui-form-item">
         <label class="layui-form-label">起始站</label>
         <div class="layui-input-inline">
-            <input id="begin" type="text" name="lineName"  required  lay-verify="required" placeholder="起始站" autocomplete="off" class="layui-input">
+            <input id="begin" type="text" name="lineName" value=""  required  lay-verify="required" placeholder="起始站" autocomplete="off" class="layui-input">
         </div>
         <label class="layui-form-label">终点站</label>
         <div class="layui-input-inline">
@@ -53,7 +64,7 @@
         </div>
         <label class="layui-form-label">线路里程</label>
         <div class="layui-input-inline">
-            <input id="lineTH" type="text" name="lineTH" maxlength="4"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" required lay-verify="required" placeholder="请输入线路里程   " autocomplete="off" class="layui-input">
+            <input id="lineTH" type="text" name="lineTH" maxlength="4" value=""   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" required lay-verify="required" placeholder="请输入线路里程   " autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -79,25 +90,22 @@
         form.on('submit(formDemo)', function(data){
             //console.log("进入提交");
             $.ajax({
-                url:'/addLine',
+                url:'/editLineAndLinetaile',
                 type:'post',
                 dataType:'json',
                 data:{
+                    "lineID":$("#lineID").val(),
                     "begin":$("#begin").val(),
                     "end":$("#end").val(),
                     "lineTH":$("#lineTH").val(),
-                    "deliveryspot":$("#deliveryspot").val(),
+                    "deliveryspotId":$("#deliveryspot").val(),
                 },
                 success:function(data){
                     if(data>0){
-                        layer.msg("增加成功");
+                        layer.msg("修改成功");
                     }
                 },
                 error:function(data){
-                    // console.log($("#begin").val())
-                    // console.log($("#end").val())
-                    // console.log($("#lineTH").val())
-                    // console.log($("#deliveryspot").val())
                     layer.msg("太垃圾了");
                 }
             });
