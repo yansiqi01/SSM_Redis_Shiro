@@ -92,12 +92,12 @@ public class LineServiceImpl implements LineService {
      * 修改线路基本信息的配送点
      *
      * @param lineID
-     * @param linetaile
+     * @param deliveryspotId
      * @return
      */
     @Override
-    public int editLinetaileByLineID(Integer lineID, Linetaile linetaile) {
-        return lineMapper.editLinetaileByLineID(lineID,linetaile);
+    public int editLinetaileByLineID(Integer lineID, String deliveryspotId) {
+        return lineMapper.editLinetaileByLineID(lineID,deliveryspotId);
     }
 
 

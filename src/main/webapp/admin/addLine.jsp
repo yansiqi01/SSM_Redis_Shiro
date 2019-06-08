@@ -15,6 +15,36 @@
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8aiFKs6Gu5ESPsxpPuzfqOsLAXT4yuTq"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        //获取发货地址以及收获地址直接距离
+        function instance(city1, city2) {
+            var myGeocoder = new BMap.Geocoder();
+            myGeocoder.getPoint(city1, function (point1) {
+                myGeocoder.getPoint(city2, function (point2) {
+                    var map = new BMap.Map('allmap');
+                    map.centerAndZoom("北京", 12);
+                    var distance = map.getDistance(point1, point2);
+                    var distanceBuf = (distance / 1000).toFixed(2).split(
+                        ".");
+                    var mileage;
+                    if (isNaN(distance)) {
+                        mileage = "未知";
+                    } else {
+                        var a = 7;
+                        a = a + parseInt(distanceBuf[0]);
+                        mileage = a + "." + distanceBuf[1];
+                    }
+                    $("#lineTH").val(mileage);
+                }, city2);
+            }, city1);
+        };
+        $("#end").blur(function () {
+            var begin =  $("#begin").val();
+            var end =  $("#end").val();
+            instance(begin,end);
+        })
+
+    </script>
     <script type="text/javascript">
         $(function(){
             $.ajax({
@@ -77,36 +107,7 @@
     </div>
 </form>
 <script src="layui/layui.js" charset="utf-8"></script>
-<script>
-    //获取发货地址以及收获地址直接距离
-    function instance(city1, city2) {
-        var myGeocoder = new BMap.Geocoder();
-        myGeocoder.getPoint(city1, function (point1) {
-            myGeocoder.getPoint(city2, function (point2) {
-                var map = new BMap.Map('allmap');
-                map.centerAndZoom("北京", 12);
-                var distance = map.getDistance(point1, point2);
-                var distanceBuf = (distance / 1000).toFixed(2).split(
-                    ".");
-                var mileage;
-                if (isNaN(distance)) {
-                    mileage = "未知";
-                } else {
-                    var a = 7;
-                    a = a + parseInt(distanceBuf[0]);
-                    mileage = a + "." + distanceBuf[1];
-                }
-                $("#lineTH").val(mileage);
-            }, city2);
-        }, city1);
-    };
-    $("#end").blur(function () {
-       var begin =  $("#begin").val();
-       var end =  $("#end").val();
-       instance(begin,end);
-    })
 
-</script>
 <script type="text/javascript">
     layui.use('form', function(){
         var form = layui.form;

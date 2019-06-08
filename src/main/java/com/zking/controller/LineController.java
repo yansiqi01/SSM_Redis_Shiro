@@ -129,7 +129,7 @@ public class LineController {
         String begin = request.getParameter("begin");
         String end = request.getParameter("end");
         String lineTH = request.getParameter("lineTH");
-        String deliveryspotId = request.getParameter("deliveryspot");
+        String deliveryspotId = request.getParameter("deliveryspotId");
         System.out.println("线路名称："+begin+end+"==里程："+lineTH+"==配送点："+deliveryspot);
 
         //线路的名称和里程
@@ -164,16 +164,16 @@ public class LineController {
         String begin = request.getParameter("begin");
         String end = request.getParameter("end");
         String lineTH = request.getParameter("lineTH");
-        String deliveryspotId = request.getParameter("deliveryspot");
+        String deliveryspotId = request.getParameter("deliveryspotId");
         System.out.println("线路ID:"+lineID+"线路名称："+begin+end+"==里程："+lineTH+"==配送点："+deliveryspotId);
 
         line.setLineName(begin+"-"+end);
         line.setLineTh(Double.parseDouble(lineTH));
 
-        linetaile.setLinetaileId(Integer.parseInt(deliveryspotId));
+
 
         lineService.editLineByLineID(Integer.parseInt(lineID),line);
-        int i = lineService.editLinetaileByLineID(Integer.parseInt(lineID), linetaile);
+        int i = lineService.editLinetaileByLineID(Integer.parseInt(lineID), deliveryspotId);
 
         return i;
     }

@@ -53,12 +53,12 @@
 
     <!--修改线路-->
     <update id="editLineByLineID">
-        UPDATE line SET line_name=#{line.LineName} where line_id=#{LineId}
+        UPDATE line SET line_name=#{line.LineName},line_th=#{line.LineTh} where line_id=#{LineId}
     </update>
 
     <!--修改线路基本信息配送点-->
     <update id="editLinetaileByLineID">
-        UPDATE linetaile SET deliveryspot_id=#{deliveryspot.deliveryspotId} where line_id=#{LineId}
+        UPDATE linetaile SET deliveryspot_id=#{deliveryspotId} where line_id=#{LineId}
     </update>
 
 

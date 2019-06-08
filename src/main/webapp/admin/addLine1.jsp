@@ -1,4 +1,10 @@
-
+<%--
+  Created by IntelliJ IDEA.
+  User: LRL
+  Date: 2019/6/2
+  Time: 21:55
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="layui/css/layui.css"  media="all">
@@ -9,44 +15,8 @@
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8aiFKs6Gu5ESPsxpPuzfqOsLAXT4yuTq"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-        //获取发货地址以及收获地址直接距离
-        function instance(city1, city2) {
-            var myGeocoder = new BMap.Geocoder();
-            myGeocoder.getPoint(city1, function (point1) {
-                myGeocoder.getPoint(city2, function (point2) {
-                    var map = new BMap.Map('allmap');
-                    map.centerAndZoom("北京", 12);
-                    var distance = map.getDistance(point1, point2);
-                    var distanceBuf = (distance / 1000).toFixed(2).split(
-                        ".");
-                    var mileage;
-                    if (isNaN(distance)) {
-                        mileage = "未知";
-                    } else {
-                        var a = 7;
-                        a = a + parseInt(distanceBuf[0]);
-                        mileage = a + "." + distanceBuf[1];
-                    }
-                    $("#lineTH").val(mileage);
-                    console.log(mileage)
-                }, city2);
-            }, city1);
-        };
-        $(function () {
-            $("#end").blur(function () {
-                alert("aaa")
-                var begin =  $("#begin").val();
-                var end =  $("#end").val();
-                instance(begin,end);
-            })
-        })
-    </script>
     <script type="text/javascript">
-        //父页面传值
-        function child(data){
-            //alert(data.deliveryspotId+data.deliveryspotName);
-        }
+
         $(function(){
             $.ajax({
                 url:'/getDeliveryspotNames',
@@ -56,31 +26,44 @@
                 success:function(data){
                     //console.log(data);
                     var html="";
-                    if(data.deliveryspotId!=null){
-                        html+='<option value="'+data.deliveryspotId+'">'+data.deliveryspotName+'</option>';
-                    }
-                    else{
-                        $.each(data, function(n, value){
-                            html+='<option value="'+n+'">'+value+'</option>';
-                            //console.log(n+"=="+value)
-                        });
-                    }
+                    $.each(data, function(n, value){
+                        html+='<option value="'+n+'">'+value+'</option>';
+                        //console.log(n+"=="+value)
+                    });
                     $('#deliveryspot').html(html);
+                    $('#deliveryspot1').html(html);
                 }
+            });
+            $("#deliveryspot").blur(function () {
+                alert("aaa");
+            });
+            $("#deliveryspot1").blur(function () {
+                alert("bbb");
             });
         });
     </script>
 </head>
-<body id="body">
+<body>
 <!--隐藏百度地图,用来获取输入的距离-->
 <div id="allmap" style="display: none;"></div>
+
 <form class="layui-form" action="" name="tab">
-    <%--隐藏线路ID--%>
-    <input type="hidden" id="lineID" value="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">起始站配送点</label>
+        <div class="layui-input-inline">
+            <select  id="deliveryspot" name="deliveryspot" lay-verify="required">
+            </select>
+        </div>
+        <label class="layui-form-label">终点站配送点</label>
+        <div class="layui-input-inline">
+            <select  id="deliveryspot1" name="deliveryspot" lay-verify="required">
+            </select>
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">起始站</label>
         <div class="layui-input-inline">
-            <input id="begin" type="text" name="lineName" value=""  required  lay-verify="required" placeholder="起始站" autocomplete="off" class="layui-input">
+            <input id="begin" type="text" name="lineName"  required  lay-verify="required" placeholder="起始站" autocomplete="off" class="layui-input">
         </div>
         <label class="layui-form-label">终点站</label>
         <div class="layui-input-inline">
@@ -88,16 +71,12 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">所属配送点</label>
-        <div class="layui-input-inline">
-            <select  id="deliveryspot" name="deliveryspot" lay-verify="required">
-            </select>
-        </div>
         <label class="layui-form-label">线路里程</label>
         <div class="layui-input-inline">
-            <input id="lineTH" type="text" name="lineTH" maxlength="4" value="" readonly="readonly"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" required lay-verify="required" placeholder="请输入线路里程   " autocomplete="off" class="layui-input">
+            <input id="lineTH" type="text" name="lineTH" readonly="readonly" maxlength="4"   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" required lay-verify="required" placeholder="请输入线路里程   " autocomplete="off" class="layui-input">
         </div>
     </div>
+
 
     <%--<div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
@@ -114,26 +93,55 @@
     </div>
 </form>
 <script src="layui/layui.js" charset="utf-8"></script>
+<script>
+    //获取发货地址以及收获地址直接距离
+    function instance(city1, city2) {
+        var myGeocoder = new BMap.Geocoder();
+        myGeocoder.getPoint(city1, function (point1) {
+            myGeocoder.getPoint(city2, function (point2) {
+                var map = new BMap.Map('allmap');
+                map.centerAndZoom("北京", 12);
+                var distance = map.getDistance(point1, point2);
+                var distanceBuf = (distance / 1000).toFixed(2).split(
+                    ".");
+                var mileage;
+                if (isNaN(distance)) {
+                    mileage = "未知";
+                } else {
+                    var a = 7;
+                    a = a + parseInt(distanceBuf[0]);
+                    mileage = a + "." + distanceBuf[1];
+                }
+                $("#lineTH").val(mileage);
+            }, city2);
+        }, city1);
+    };
+    $("#end").blur(function () {
+       var begin =  $("#begin").val();
+       var end =  $("#end").val();
+       instance(begin,end);
+    })
+
+</script>
 <script type="text/javascript">
     layui.use('form', function(){
         var form = layui.form;
         var layer = parent.layer;
         form.on('submit(formDemo)', function(data){
-            alert($("#deliveryspot").val());
+            //console.log("进入提交");
             $.ajax({
-                url:'/editLineAndLinetaile',
+                url:'/addLine',
                 type:'post',
                 dataType:'json',
                 data:{
-                    "lineID":$("#lineID").val(),
                     "begin":$("#begin").val(),
                     "end":$("#end").val(),
                     "lineTH":$("#lineTH").val(),
-                    "deliveryspotId":$("#deliveryspot").val(),
+                    "deliveryspot":$("#deliveryspot").val(),
                 },
                 success:function(data){
                     if(data>0){
-                        layer.msg("修改成功");
+                        layer.msg("增加成功");
                     }
                 },
                 error:function(data){

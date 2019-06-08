@@ -55,14 +55,14 @@ public interface LineMapper {
      * @param line
      * @return
      */
-    int editLineByLineID(Integer lineID,Line line);
+    int editLineByLineID(@Param("LineId")Integer lineID,@Param("line") Line line);
 
     /**
      * 修改线路基本信息的配送点
      * @param lineID
-     * @param linetaile
+     * @param deliveryspotId
      * @return
      */
-    int editLinetaileByLineID(Integer lineID,Linetaile linetaile);
+    int editLinetaileByLineID(@Param("LineId") Integer lineID,@Param("deliveryspotId") String deliveryspotId);
 
 }
