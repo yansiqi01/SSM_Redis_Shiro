@@ -39,6 +39,11 @@
                 var end =  $("#end").val();
                 instance(begin,end);
             })
+            $("#begin").blur(function () {
+                var begin =  $("#begin").val();
+                var end =  $("#end").val();
+                instance(begin,end);
+            })
         })
     </script>
     <script type="text/javascript">

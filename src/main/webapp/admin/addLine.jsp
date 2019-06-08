@@ -16,6 +16,18 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8aiFKs6Gu5ESPsxpPuzfqOsLAXT4yuTq"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script>
+        $(function () {
+            $("#end").blur(function () {
+                var begin =  $("#begin").val();
+                var end =  $("#end").val();
+                instance(begin,end);
+            })
+            $("#begin").blur(function () {
+                var begin =  $("#begin").val();
+                var end =  $("#end").val();
+                instance(begin,end);
+            })
+        })
         //获取发货地址以及收获地址直接距离
         function instance(city1, city2) {
             var myGeocoder = new BMap.Geocoder();
@@ -38,11 +50,7 @@
                 }, city2);
             }, city1);
         };
-        $("#end").blur(function () {
-            var begin =  $("#begin").val();
-            var end =  $("#end").val();
-            instance(begin,end);
-        })
+
 
     </script>
     <script type="text/javascript">
@@ -113,7 +121,6 @@
         var form = layui.form;
         var layer = parent.layer;
         form.on('submit(formDemo)', function(data){
-            //console.log("进入提交");
             $.ajax({
                 url:'/addLine',
                 type:'post',
@@ -122,7 +129,7 @@
                     "begin":$("#begin").val(),
                     "end":$("#end").val(),
                     "lineTH":$("#lineTH").val(),
-                    "deliveryspot":$("#deliveryspot").val(),
+                    "deliveryspotId":$("#deliveryspot").val(),
                 },
                 success:function(data){
                     if(data>0){
@@ -130,7 +137,7 @@
                     }
                 },
                 error:function(data){
-                    layer.msg("请输入正确的地址");
+                    layer.msg("请输入正确的地址！！！");
                 }
             });
             setTimeout(function(){
@@ -141,7 +148,6 @@
             },1000);
             return false;
         });
-
     });
 </script>
 <script>

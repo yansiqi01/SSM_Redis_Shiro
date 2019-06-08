@@ -47,7 +47,6 @@
 </table>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" id="pa">派车</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <script src="layui/layui.js" charset="utf-8"></script>
