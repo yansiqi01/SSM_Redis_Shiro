@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/mvc
-						http://www.springframework.org/schema/mvc/spring-mvc.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context.xsd
-						http://www.springframework.org/schema/aop
-						http://www.springframework.org/schema/aop/spring-aop.xsd
 						http://www.springframework.org/schema/tx
 						http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!--开启spring注解扫描-->
+    <context:component-scan base-package="com.zking"/>
 
     <!--引入外部文件-->
     <context:property-placeholder location="classpath:properties/db.properties"/>
@@ -32,16 +28,6 @@
         <!--#定义最大连接数-->
         <property name="maxPoolSize" value="${pool.maxSize}"/>
     </bean>
-    
-    <!--配置MybatisPagehelper插件-->
-    <!--<bean id="pageInterceptor" class="com.github.pagehelper.PageInterceptor">
-       <property name="properties">
-           <props>
-               &lt;!&ndash;默认false，设置为true时，使用RowBounds分页会进行count查询&ndash;&gt;
-               <prop key="rowBoundsWithCount">true</prop>
-           </props>
-       </property>
-    </bean>-->
 
 
     <!--2.配置sqlsessionFactory-->
@@ -82,5 +68,12 @@
 
     <!--5.启用spring注解事务-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--加载外部核心xml-->
+
+    <import resource="spring-shiro.xml"></import>
+    <import resource="spring-redis.xml"></import>
+
 
 </beans>

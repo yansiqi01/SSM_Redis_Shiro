@@ -16,33 +16,33 @@
 <body>
 <form class="layui-form" action="">
     <%--隐藏用户id--%>
-    <input type="hidden" name="userId" value="${user.userId}"/>
+    <input type="hidden" name="userId" value="${use.userId}"/>
     <div class="layui-form-item">
         <label class="layui-form-label">员工账户名</label>
         <div class="layui-input-inline">
-            <input type="text" name="userName" lay-verify="required" value="${user.userName}" autocomplete="off" placeholder="员工登录账户" class="layui-input">
+            <input type="text" name="userName" lay-verify="required" value="${use.userName}" autocomplete="off" placeholder="员工登录账户" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">登录密码</label>
         <div class="layui-input-inline">
-            <input type="text" name="userPassword" lay-verify="required" value="${user.userPassword}" placeholder="登录密码" autocomplete="off" class="layui-input">
+            <input type="text" name="userPassword" lay-verify="required" value="${use.userPassword}" placeholder="登录密码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">员工姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="EmpName" lay-verify="required" value="${user.employee.empName}" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="EmpName" lay-verify="required" value="${use.employee.empName}" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">员工性别</label>
         <div class="layui-input-inline">
-            <c:if test="${user.employee.empSex=='男'}">
+            <c:if test="${use.employee.empSex=='男'}">
                  <input type="radio" name="EmpSex" value="男" title="男" checked="" >
                 <input type="radio" name="EmpSex" value="女" title="女">
             </c:if>
-            <c:if test="${user.employee.empSex=='女'}">
+            <c:if test="${use.employee.empSex=='女'}">
                 <input type="radio" name="EmpSex" value="男" title="男">
                 <input type="radio" name="EmpSex" value="女" title="女" checked="">
             </c:if>
@@ -51,20 +51,20 @@
     <div class="layui-form-item">
         <label class="layui-form-label">员工地址</label>
         <div class="layui-input-inline">
-            <input type="text" name="EmpAddress" lay-verify="required" value="${user.employee.empAddress}" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="EmpAddress" lay-verify="required" value="${use.employee.empAddress}" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">员工电话</label>
         <div class="layui-input-inline">
-            <input type="text" name="EmpTel" lay-verify="phone" placeholder="请输入" value="${user.employee.empTel}" autocomplete="off" class="layui-input">
+            <input type="text" name="EmpTel" lay-verify="phone" placeholder="请输入" value="${use.employee.empTel}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">入职时间</label>
             <div class="layui-input-inline">
-                <input type="text" name="EmpWorkTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" value="${user.employee.empWorkTime}" autocomplete="off" class="layui-input">
+                <input type="text" name="EmpWorkTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" value="${use.employee.empWorkTime}" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -72,14 +72,14 @@
         <div class="layui-inline">
             <label class="layui-form-label">员工工资</label>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" lay-verify="number" name="EmpSalary" placeholder="￥" autocomplete="off" value="${user.employee.empSalary}" class="layui-input">
+                <input type="text" lay-verify="number" name="EmpSalary" placeholder="￥" autocomplete="off" value="${use.employee.empSalary}" class="layui-input">
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">员工身份证</label>
         <div class="layui-input-inline">
-            <input type="text" name="EmpCardId" lay-verify="identity" placeholder="请输入" value="${user.employee.empCardId}" autocomplete="off" class="layui-input">
+            <input type="text" name="EmpCardId" lay-verify="identity" placeholder="请输入" value="${use.employee.empCardId}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!-- 隐式标签 -->
@@ -116,7 +116,6 @@
         </div>
     </div>--%>
 
-
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">所属配送点</label>
@@ -124,10 +123,10 @@
                 <select  name="deliveryspot.deliveryspotId" lay-verify="required" lay-search="">
                     <option value="">直接选择或搜索选择</option>
                     <c:forEach items="${deliverys}" var="d">
-                        <c:if test="${user.deliveryspot.deliveryspotId==d.deliveryspotId}">
+                        <c:if test="${use.deliveryspot.deliveryspotId==d.deliveryspotId}">
                             <option value="${d.deliveryspotId}" selected>${d.deliveryspotName}</option>
                         </c:if>
-                        <c:if test="${user.deliveryspot.deliveryspotId!=d.deliveryspotId}">
+                        <c:if test="${use.deliveryspot.deliveryspotId!=d.deliveryspotId}">
                             <option value="${d.deliveryspotId}">${d.deliveryspotName}</option>
                         </c:if>
                     </c:forEach>
@@ -138,10 +137,10 @@
     <div class="layui-form-item">
         <label class="layui-form-label">任职状态</label>
         <div class="layui-input-block">
-            <c:if test="${user.employee.empFiag=='1'}">
+            <c:if test="${use.employee.empFiag=='1'}">
                 <input type="checkbox" checked="" name="EmpFiag" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在职|待职">
             </c:if>
-            <c:if test="${user.employee.empFiag=='0'}">
+            <c:if test="${use.employee.empFiag=='0'}">
                 <input type="checkbox"  name="EmpFiag" lay-skin="switch" value="1" lay-filter="switchTest" lay-text="在职|待职">
             </c:if>
         </div>
@@ -187,7 +186,6 @@
                 alert(data)
             }
         });
-
     }
 
 

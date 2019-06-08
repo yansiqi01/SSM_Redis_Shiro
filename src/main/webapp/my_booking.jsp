@@ -16,12 +16,11 @@
     <link href="css/common.css" rel="stylesheet" type="text/css"/>
     <link href="admin/layui/css/layui.css">
     <link href="css/reset.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.0.1/jquery.js"></script>
     <script type="text/javascript" src="js/customer2.js"></script>
     <script type="text/javascript" src="admin/layui/layui.js"></script>
     <script type="text/javascript">
         layui.use('laypage',function(){
-            var laydate = layui.laydate;
             var layuipage = layui.laypage;
             var url="/getOrdersByquserId";
             var config = {page:1,pageSize:4};
@@ -119,7 +118,7 @@
             </div>
             <table class="table_U mTop_40" id="tab">
             </table>
-           <div id="page1"></div>
+           <div id="page1" style="font-size: 18px;align-content: center; margin-left: 400px;"></div>
         </div>
     </div>
 </div>

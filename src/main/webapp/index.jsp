@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -36,9 +37,9 @@
         <!-- <h1 class="logo_text"><a  href="index.html"><img alt="" width="100px" height="" src="images/logo_text.png"/></a></h1> -->
         <ul class="nav">
             <li><a href="index.jsp">首页</a></li>
-            <li><a class="btnB" href="my_account.jsp" >我要下单</a></li>
-            <li><a href="railway_class.jsp">物流专线</a></li>
-            <li><a href="order_tracking.jsp">订单跟踪</a></li>
+            <c:if test="${!empty QUser}">
+                <li><a class="btnB" href="my_account.jsp" >我要下单</a></li>
+            </c:if>
         </ul>
         <a  href="index.html">
             <!-- <h1 class="logo_icon"></h1> -->

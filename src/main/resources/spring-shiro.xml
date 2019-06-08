@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--1.配置自定义MyRealm-->
     <bean id="myRealm" class="com.zking.shiro.MyRealm"></bean>
@@ -18,7 +16,7 @@
         <!--加载管理器，拦截器需要加载一个安全管理器,SecurityManager 是整个Shiro框架的核心-->
         <property name="securityManager" ref="securityManager"/>
         <!--没有登陆的时候，跳转的这个页面-->
-        <property name="loginUrl" value="/admin/login"/>
+        <property name="loginUrl" value="/admin/login.jsp"/>
         <!--当没有权限的时候，跳转到这个Url-->
         <property name="unauthorizedUrl"  value="nopermission"/>
         <!--
@@ -32,9 +30,20 @@
                 authc表示需要认证才能访问，
                 perms 表示需要该权限才能访问的页面
                 -->
-                /login.jsp = anon
-                /index.jsp = anon
-                /admin/** = anon
+                <!-- 过滤器链
+		        认证：
+		     	1 在页面输入lisi 123 被loginInterceptor urlInterceptor放行
+		     	2 LogController中login方法收集页面表单中数据封装为User对象，调用service,调用dao来完成一个比对
+		     	收集和组织表单数据，进行比对
+			    由多个过滤器构成，每个过滤器承担不同职责
+			    authc：认证过滤器-表单认证过滤器，收集表单数据，进行比对(CustomRealm中身份认证方法)
+			    logout:注销过滤器，此拦截器设置的url可以不对应一个真实存在controller方法
+		        -->
+                /admin/adminLogin = anon
+                /admin/login.jsp = anon
+                /admin/loginout = logout
+                /admin/** = authc
+                /resources/** = anon
             </value>
         </property>
     </bean>

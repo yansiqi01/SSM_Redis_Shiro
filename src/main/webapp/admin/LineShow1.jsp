@@ -111,7 +111,7 @@
                     title: '修改线路',
                     shadeClose: true,
                     shade: 0.5,
-                    area: ['30%', '70%'],
+                    area: ['700px', '600px'],
                     content:'/admin/editLine.jsp',
                     success:function (layero,index) {
                         // 获取子页面的iframe

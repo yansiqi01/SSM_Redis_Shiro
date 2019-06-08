@@ -9,6 +9,7 @@
           content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>物流后台管理系统</title>
     <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="https://cdn.bootcss.com/jquery/2.0.1/jquery.min.js"></script>
     <style type="text/css">
         #index-container, html, body {
             margin: 0px;

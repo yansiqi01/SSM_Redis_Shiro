@@ -54,7 +54,7 @@ public class OrderController {
     oders.setGoodsType(goodsType);
     oders.setOrderTotalprice(Double.parseDouble(request.getParameter("mony")));
     oders.setOrderState(0);
-    oders.setOrderCreatetime(dateFormat.format(date));
+    oders.setOrderCreatetime(dateFormat.format(new Date()));
     oders.setLine(line);
     int i = orderService.addOrder(oders);
     if(i>0){
@@ -64,13 +64,14 @@ public class OrderController {
 
     }
 
+
     @RequestMapping(value = "/deleteOrder/{id}",method = RequestMethod.GET)
     public String  delOrder(@PathVariable("id") Integer OrderId, HttpServletResponse response) throws IOException {
         System.out.println("========OrderId"+OrderId);
         oders.setOrderId(OrderId);
         int i = orderService.delOrder(oders);
         if(i>0){
-           return "my_booking";
+           return "redirect:/my_booking.jsp";
         }
         return  null;
     }

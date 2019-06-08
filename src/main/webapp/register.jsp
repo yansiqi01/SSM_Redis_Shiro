@@ -18,7 +18,7 @@
 			.get_verify{ height: 36px; color:#b6b6b6; padding: 0px 8px; border: 1px solid #dcdcdc; font-size: 14px; line-height: 36px; background-color: #01793B;}
 			.inp {width: 232px; height: 36px; color:#b6b6b6; padding: 0px 8px; border: 1px solid #dcdcdc; font-size: 14px; line-height: 36px; }
 		</style>
-       <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery.1.7.2.min.js"></script>
 
         <script type="text/javascript">
                var yzm ="";

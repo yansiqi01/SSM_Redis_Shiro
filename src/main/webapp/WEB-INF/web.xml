@@ -13,7 +13,7 @@
   <!--加载上下文  spring核心配置文件-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:applicationContext.xml,classpath:spring-shiro.xml</param-value>
+    <param-value>classpath*:applicationContext.xml</param-value>
   </context-param>
 
     <!--shiro拦截器-->
@@ -87,7 +87,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath*:spring-*.xml</param-value>
+      <param-value>classpath*:springmvc.xml</param-value>
     </init-param>
     <!--可选项，加载的顺序。
     若它存在，则它将在应用启动时装载servlet并调用它的init方法；

@@ -18,43 +18,58 @@
     <script type="text/javascript" src="js/customer2.js"></script>
     <script type="text/javascript">
         $(function(){
+            $("#target").submit(function(){
+                if(peisong()==true){
+                    return true;
+                }
+                return false;
+            });
             select();
         });
-      function select() {
-          if( $("#goodsType").val()==1){
-              $("#volume").hide();
-              $("#weight").show();
-              $("#weight").val("")
-          }
-          if( $("#goodsType").val()==2){
-              $("#weight").hide();
-              $("#volume").show();
-              $("#volume").val("")
-          }
-      }
-      function money() {
-          var money;
-          if($("#goodsType option:selected").val()==1){
-              if($("#Lid option:selected").val()==1){
-                  money =  $("#weight").val()*0.7
-              }
-              if($("#Lid option:selected").val()==2){
-                  money =  $("#weight").val()*0.5
-              }
-          }
-          if($("#goodsType option:selected").val()==2){
-              if($("#Lid option:selected").val()==1){
-                  money = $("#volume").val()*210
-              }
-              if($("#Lid option:selected").val()==2){
-                  money = $("#volume").val()*150
-              }
-          }
-               $("#hid").val(money);
-                 console.log(money)
-      }
-    </script>
+        function select() {
+            if( $("#goodsType").val()==1){
+                $("#volume").hide();
+                $("#weight").show();
+                $("#weight").val("")
+            }
+            if( $("#goodsType").val()==2){
+                $("#weight").hide();
+                $("#volume").show();
+                $("#volume").val("")
+            }
+        }
+        function money() {
+            var money;
+            if($("#goodsType option:selected").val()==1){
+                if($("#Lid option:selected").val()==1){
+                    money =  $("#weight").val()*0.7
+                }
+                if($("#Lid option:selected").val()==2){
+                    money =  $("#weight").val()*0.5
+                }
+            }
+            if($("#goodsType option:selected").val()==2){
+                if($("#Lid option:selected").val()==1){
+                    money = $("#volume").val()*210
+                }
+                if($("#Lid option:selected").val()==2){
+                    money = $("#volume").val()*150
+                }
+            }
+            $("#hid").val(money);
+            console.log(money)
+        }
 
+        function peisong() {
+            var sendaddress = $("#send option:selected").text();
+            var receivename =$("#receivea option:selected").text();
+            if(sendaddress==receivename){
+                alert("选区有误")
+                return false;
+                s             }
+            return true;
+        }
+    </script>
 </head>
 
 <body class="bg_f4">
@@ -92,7 +107,7 @@
     <div class="bg_com mTop_40 clear">
         <div class="h2_booking">我要下单</div>
 
-        <form action="/addOrder" method="post">
+        <form action="/addOrder" method="post" id="target">
 
             <div class="booking_box clear">
 
@@ -104,7 +119,11 @@
                     </p>
                     <p>
                         <label class="booking_lable">发货人地址</label>
-                        <input type="text" class="inp_text" name="orderSendaddress" id="sdsd" value="" />
+                        <select name="orderSendaddress" id="send">
+                            <option value="上海配送点">上海配送点</option>
+                            <option value="湖南配送点">湖南配送点</option>
+                            <option value="深圳配送点">深圳配送点</option>
+                        </select>
                     </p>
                     <p>
                         <label class="booking_lable" >发货人电话</label>
@@ -126,7 +145,11 @@
                     </p>
                     <p>
                         <label  class="booking_lable">收货人地址</label>
-                        <input type="text" class="inp_text" name="orderReceiveaddress" id="zzzz" value="" />
+                        <select name="orderReceiveaddress" id="receivea">
+                            <option value="湖南配送点">湖南配送点</option>
+                            <option value="上海配送点">上海配送点</option>
+                            <option value="深圳配送点">深圳配送点</option>
+                        </select>
                     </p>
                     <p>
                         <label  class="booking_lable">收货人电话</label>

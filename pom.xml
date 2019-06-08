@@ -265,40 +265,61 @@
     <finalName>SSM_Redis_Shiro</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
-        <!--指定jdk版本为1.8-->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <encoding>UTF-8</encoding>
-          </configuration>
-        </plugin>
-        <!--打jar 带依赖 -->
-        <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <configuration>
-            <archive>
-              <!-- 	<manifest> -->
-              <!--带main方法的话要指定main的入口  -->
-              <!--<mainClass>com.yt.distincttask.MainDistinctTask.Main</mainClass> -->
-              <!-- </manifest> -->
-            </archive>
-            <descriptorRefs>
-              <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
-          </configuration>
-        </plugin>
-        <!--打源码包 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
-          </configuration>
-        </plugin>
+          <!--指定jdk版本为1.8-->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.5.0</version>
+              <configuration>
+                  <source>1.8</source>
+                  <target>1.8</target>
+                  <encoding>UTF-8</encoding>
+              </configuration>
+          </plugin>
+          <!--打jar 带依赖 -->
+          <plugin>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <configuration>
+                  <archive>
+                      <!-- 	<manifest> -->
+                      <!--带main方法的话要指定main的入口  -->
+                      <!--<mainClass>com.yt.distincttask.MainDistinctTask.Main</mainClass> -->
+                      <!-- </manifest> -->
+                  </archive>
+                  <descriptorRefs>
+                      <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+              </configuration>
+          </plugin>
+          <!--打源码包 -->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>2.0.2</version>
+              <configuration>
+                  <source>1.7</source>
+                  <target>1.7</target>
+              </configuration>
+          </plugin>
+          <plugin>
+              <artifactId>maven-source-plugin</artifactId>
+              <version>2.4</version>
+              <configuration>
+                  <attach>true</attach>
+              </configuration>
+              <executions>
+                  <execution>
+                      <!-- 在maven的compile 阶段就开始打包 -->
+                      <phase>compile</phase>
+                      <goals>
+                          <!-- 源码单独作为一个jar包 -->
+                          <goal>jar</goal>
+                          <!--源码打进jar包中 类似执行mvn source:jar -->
+                          <goal>jar-no-fork</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
 
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>

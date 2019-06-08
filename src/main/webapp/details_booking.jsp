@@ -77,8 +77,7 @@
                     <div class="acc clear"> 我的账户 <span class="tri"></span>
                         <div class="account_con_A">
                             <ul>
-                                <li><a class="acl1" href="user_center.jsp">个人中心</a></li>
-                                <li><a class="acl1" href="index.jsp">退出账号</a></li>
+                                <li><a class="acl1" href="/logout">退出账号</a></li>
                             </ul>
                         </div>
                     </div>
@@ -97,9 +96,8 @@
 <div class="wrap_user clear">
     <div class="left_menu">
         <ul>
-            <li><a class="current" href="my_booking.jsp">我的订单</a></li>
-            <li><a href="my_account.jsp">我的对账单</a></li>
-            <li><a href="my_tool.jsp">我的工具箱</a></li>
+            <li><a href="my_booking.jsp">我的订单</a></li>
+            <li><a href="my_account.jsp">我要下单</a></li>
         </ul>
     </div>
     <div class="right_con">

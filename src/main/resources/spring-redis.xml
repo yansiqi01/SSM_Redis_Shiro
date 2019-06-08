@@ -6,27 +6,27 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--引入外部文件-->
-    <context:property-placeholder location="classpath:properties/redis.properties"/>
+    <context:property-placeholder location="classpath:/properties/redis.properties"/>
 
     <!--配置jedis连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!-- 控制一个pool最多有多少个状态为idle(空闲)的jedis实例 -->
-        <property name="maxIdle" value="${redis.maxIdle}"></property>
+        <property name="maxIdle" value="300"></property>
         <!-- 控制一个pool可分配多少个jedis实例 -->
-        <property name="maxTotal" value="${redis.maxActive}"></property>
+        <property name="maxTotal" value="600"></property>
         <!-- 表示当borrow一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException -->
-        <property name="maxWaitMillis" value="${redis.maxWait}"></property>
+        <property name="maxWaitMillis" value="1000"></property>
         <!-- 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的 -->
-        <property name="testOnBorrow" value="${redis.testOnBorrow}"></property>
+        <property name="testOnBorrow" value="true"></property>
     </bean>
 
     <!--创建jedis连接工厂-->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="poolConfig" ref="jedisPoolConfig"></property>
-        <property name="hostName" value="${redis.host}" />
-        <property name="port" value="${redis.port}" />
-        <property name="usePool" value="${redis.usePool}" />
-        <property name="timeout" value="${redis.timeout}" />
+        <property name="hostName" value="47.107.120.48" />
+        <property name="port" value="6379" />
+        <property name="usePool" value="true" />
+        <property name="timeout" value="2000" />
     </bean>
 
     <!--

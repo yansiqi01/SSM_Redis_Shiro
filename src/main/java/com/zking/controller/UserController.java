@@ -88,37 +88,6 @@ public class UserController {
 
 
 
-    //测试缓存
-    @RequestMapping("/redis")
-    public String b(){
-
-//        System.out.println("数据打印："+redisTemplate.opsForValue().get("user1"));
-        System.out.println(redisTemplateUtil.getString("user1"));
-  /*      logger.info("===========================================执行了方法");
-        logger.error("==========================================执行了异常日志打印");
-        logger.debug("==========================================执行了debug日志打印");*/
-//        System.out.println("缓存数据："+redisTemplateUtil.getString(KEY));
-
-//        System.out.println("缓存数据:"+redisTemplate.opsForValue().get(KEY).toString());
-
-//        System.out.println("打印："+redisTemplateUtil.getString("a"));
-//        String s = (String) redisTemplateUtil.get(KEY);
-
-//        List<User> users=null;
-//
-//        if(s==null){
-//            System.out.println("缓存中没有数据...去数据库查询");
-//            users = userService.getUsers();
-//            redisTemplateUtil.set(KEY,users);
-//        }else {
-//            System.out.println("缓存中有数据去缓存中查找。。。");
-//            return s;
-//        }
-//        return users.toString();
-        return null;
-    }
-
-
     /**
      * 根据用户id查询对应的权限菜单
      */
@@ -126,9 +95,10 @@ public class UserController {
     @RequestMapping("/userByPower")
     public String getPower(){
 
+        //获取用户信息
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
         //定义一个userId
-        int uid = 18;
-        return new Gson().toJson(powerService.getPowerByUserId(uid));
+        return new Gson().toJson(powerService.getPowerByUserId(user.getUserId()));
     }
 
 
@@ -234,7 +204,9 @@ public class UserController {
     }
 
 
-
+    /**
+     * 添加员工返回页面
+     */
     private static final String ADDEMP_USER="/admin/addemp";
 
     /**
@@ -264,7 +236,7 @@ public class UserController {
 
         ModelAndView mv = new ModelAndView();
         User user = userService.getUserByUidAndEmp(uid);
-        mv.addObject("user",user);
+        mv.addObject("use",user);
 
         List<Position> userRole = positionService.getRolesByUserId(uid);
         mv.addObject("userRole",userRole);
@@ -285,14 +257,10 @@ public class UserController {
     @RequestMapping("/editUseremp")
     @ResponseBody
     public ResultUtil updateEmpUser(User user, Employee employee,String[] rolesid){
-        System.out.println("===========================提交数据打印=======================");
-        System.out.println(user);
-        System.out.println(employee);
-        System.out.println(rolesid);
         Map<String,Object> map = new HashMap<>();
-        map.put("user",user);
-        map.put("employee",employee);
-        map.put("rolesid",rolesid);
+//        map.put("user",user);
+//        map.put("employee",employee);
+//        map.put("rolesid",rolesid);
         return userService.AdminupdateUserAndEmp(user,employee);
     }
 
