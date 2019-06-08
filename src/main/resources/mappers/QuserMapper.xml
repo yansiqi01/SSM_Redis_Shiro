@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.QUserMapper">
+
+    <!--使用redis二级缓存-->
+  <!--  <cache type="com.zking.redis.RedisCache"></cache>-->
+
+    <!--QQ注册-->
+
+    <insert id="addOpenId">
+        insert  into
+        q_user(quser_code)
+        values
+        (#{quserCode})
+    </insert>
+
+    <!--查询-->
+    <select id="openid" parameterType="String" resultType="Quser">
+        select * from  q_user where quser_code = #{quserCode}
+    </select>
+
+    <!--注册-->
+    <insert id="addQuser" parameterType="Quser">
+        insert  into q_user (quser_password,quser_tel,quser_code) values (#{quserPassword},#{quserTel},#{quserCode});
+    </insert>
+
+
+    <!--根据对象名查找对象-->
+    <select id="getUserByUsername" resultType="Quser">
+     select * from q_user where  quser_tel=#{quserTel}
+       <if test="quserPassword != null">
+           and quser_password=#{quserPassword}
+       </if>
+
+    </select>
+
+    <!--修改手机号码-->
+    <update id="updateTel" parameterType="quser">
+        update  q_user set quser_tel=#{quserTel},quser_password=#{quserPassword} where quser_code=#{quserCode}
+    </update>
+</mapper>

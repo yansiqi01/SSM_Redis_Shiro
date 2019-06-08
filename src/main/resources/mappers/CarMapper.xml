@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.CarMapper">
+
+    <resultMap id="carMapper" type="com.zking.model.Car">
+       <id property="carId" column="car_id"/>
+        <result property="corkNo" column="work_no"/>
+        <result property="carSize" column="car_size"/>
+        <result property="carTonnage" column="car_tonnage"/>
+        <result property="cuyTiem" column="buy_time"/>
+        <result property="carLeavetime" column="car_leavetime"/>
+        <result property="carstateId" column="carstate_id"/>
+        <result property="carRemark" column="car_remark"/>
+        <association property="employee" column="empId" javaType="com.zking.model.Employee">
+        <id property="empId" column="emp_id"/>
+        <result property="empName" column=""/>
+        </association>
+        <association property="carType" column="carTypeId" javaType="com.zking.model.CarType">
+        <id property="carTypeId" column="cartype_id" />
+            <result property="carTypeName" column="cartype_name"/>
+            <result property="empName" column="emp_name"/>
+            <result property="empSex" column="emp_sex"/>
+            <result property="empAddress" column="emp_address"/>
+            <result property="empTel" column="emp_tel"/>
+            <result property="empWorkTime" column="emp_workTime"/>
+            <result property="empSalary" column="emp_salary"/>
+            <result property="empCardId" column="emp_cardId"/>
+            <result property="empFiag" column="emp_cardId"/>
+        </association>
+        <association property="deliveryspot" column="deliveryspotId" javaType="com.zking.model.Deliveryspot">
+            <id property="deliveryspotId" column="deliveryspot_id"/>
+            <result property="deliveryspotName" column="deliveryspot_name"/>
+            <result property="deliveryspotProvince" column="deliveryspot_province"/>
+            <result property="deliveryspotCity" column="deliveryspot_city"/>
+            <result property="deliveryspotTel" column="deliveryspot_tel"/>
+        </association>
+
+    </resultMap>
+
+    <!--使用redis二级缓存-->
+  <!--  <cache type="com.zking.redis.RedisCache"></cache>-->
+
+    <select id="getCarType" resultType="cartype">
+          select  * from  cartype
+    </select>
+
+    <select id="getEmp" resultType="Employee">
+        select emp_id,emp_name  from  employee where deliveryspot_id=2
+    </select>
+
+    <insert id="addCar" parameterType="Car">
+        insert  into car(work_no,car_size,car_tonnage,buy_time,carstate_id,car_remark,cartype_id,emp_id,deliveryspot_id)
+        values
+         (#{corkNo},#{carSize},#{carTonnage},#{cuyTiem},#{carstateId},#{carRemark},#{carType.carTypeId},#{employee.empId},#{deliveryspot.deliveryspotId});
+    </insert>
+
+
+    <select id="getAllCar" resultMap="carMapper">
+
+        select * from car  where  deliveryspot_id=#{deliveryspot.deliveryspotId}
+        <if test="corkNo!=null">
+            and  work_no like '%${corkNo}%'
+        </if>
+
+
+    </select>
+
+    <delete id="deleteCar" parameterType="car">
+        delete  from  car where car_id=#{carId}
+    </delete>
+
+
+    <select id="getAllCarName" resultMap="carMapper">
+        select car_id,work_no,carstate_id  from car
+    </select>
+
+    <update id="updateCar" parameterType="car">
+        update car set work_no=#{corkNo},car_size=#{carSize},car_tonnage=#{carTonnage},car_remark=#{carRemark},cartype_id=#{carType.carTypeId},emp_id=#{employee.empId}
+        where car_id=#{carId}
+    </update>
+
+</mapper>

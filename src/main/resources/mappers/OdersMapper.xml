@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.OrderMapper">
+
+    <!--使用redis二级缓存-->
+    <!--<cache type="com.zking.redis.RedisCache"></cache>-->
+    <resultMap id="orderMapper" type="com.zking.model.Oders">
+        <id property="orderId" column="order_id"/>
+        <result property="orderSendname" column="order_sendname"/>
+        <result property="orderSendaddress" column="order_sendaddress"/>
+        <result property="orderSendtel" column="order_sendtel"/>
+        <result property="orderReceivename" column="order_receivename"/>
+        <result property="orderReceiveaddress" column="order_receiveaddress"/>
+        <result property="orderReceivetel" column="order_receivetel"/>
+        <result property="orderState" column="order_state"/>
+        <result property="orderTotalprice" column="order_totalprice"/>
+        <result property="orderInsureprice" column="order_insureprice"/>
+        <result property="orderGoodsprice" column="order_goodsprice"/>
+        <result property="orderVolume" column="order_volume"/>
+        <result property="orderWeight" column="order_weight"/>
+        <result property="orderRemark" column="order_remark"/>
+        <result property="orderCreatetime" column="order_createtime"/>
+       <association property="goodsType" column="GoodsId" javaType="com.zking.model.GoodsType">
+          <id property="GoodsId" column="goods_id"/>
+            <id property="GoodsType" column="goods_type"/>
+        </association>
+        <association property="deliveryspot" column="deliveryspotId" javaType="com.zking.model.Deliveryspot">
+            <id property="deliveryspotId" column="deliveryspot_id"/>
+            <result property="deliveryspotName" column="deliveryspot_name"/>
+            <result property="deliveryspotProvince" column="deliveryspot_province"/>
+            <result property="deliveryspotCity" column="deliveryspot_city"/>
+            <result property="deliveryspotTel" column="deliveryspot_tel"/>
+        </association>
+        <association property="quser" column="quserId" javaType="com.zking.model.Quser">
+                <id property="quserId" column="quser_id"/>
+                 <result property="quser_name" column="quser_name"/>
+                 <result property="quserPassword" column="quser_password"/>
+                 <result property="quserTel" column="quser_tel"/>
+                 <result property="quserCode" column="quser_code"/>
+        </association>
+        <association property="line" column="lineId" javaType="com.zking.model.Line">
+             <id property="lineId" column="line_id"/>
+             <result property="lineName" column="line_name"/>
+             <result property="lineTh" column="line_th"/>
+        </association>
+    </resultMap>
+<!--增加-->
+    <insert id="addOrder" parameterType="oders">
+        insert  into  orders(quser_id,order_sendname,order_sendaddress,order_sendtel,order_receivename,order_receiveaddress,order_receivetel,order_state,order_totalprice,order_insureprice,goods_id,order_goodsprice,order_volume,order_weight,order_remark,order_createtime,deliveryspot_id,line_id)
+
+        values
+
+        (#{quser.quserId},#{orderSendname},#{orderSendaddress},#{orderSendtel},#{orderReceivename},#{orderReceiveaddress},#{orderReceivetel},#{orderState},#{orderTotalprice},#{orderInsureprice},#{goodsType.GoodsId},#{orderGoodsprice},#{orderVolume},#{orderWeight},#{orderRemark},#{orderCreatetime},#{deliveryspot.deliveryspotId},#{line.lineId});
+    </insert>
+
+    <!--删除-->
+    <delete id="delOrder" parameterType="oders">
+        delete  from orders where order_id =#{orderId}
+    </delete>
+
+    <!--查看-->
+    <select id="getOrders" resultMap="orderMapper">
+        select  * from  orders where order_state >0
+    </select>
+
+    <!--派送车辆-->
+    <update id="sendOrder" parameterType="oders">
+        update orders set car_id=#{car.carId}, order_state=2  where order_id=#{orderId}
+    </update>
+    <!--前台用户查询-->
+    <select id="getOrdersByQserId" parameterType="quser" resultMap="orderMapper">
+          select * from  orders where quser_id=#{quserId}
+    </select>
+
+    <!--查询单个-->
+    <select id="getOderByorderId" parameterType="oders" resultMap="orderMapper">
+        select * from orders where order_id =#{orderId}
+    </select>
+
+    <!--修改支付状态-->
+    <update id="updateOrder" parameterType="oders">
+        update  orders  set order_state=#{orderState} where order_id=#{orderId}
+    </update>
+</mapper>

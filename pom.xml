@@ -245,6 +245,20 @@
     </dependency>
     <!--====================================映入工具类所需依赖 END-->
 
+
+      <!--引入验证码jar包-->
+      <dependency>
+          <groupId>com.showapi_sdk.jar</groupId>
+          <artifactId>showapi_sdk</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+      <!--qqdemo-->
+      <dependency>
+          <groupId>com.sdk4j</groupId>
+          <artifactId>sdk4j</artifactId>
+          <version>1.0</version>
+      </dependency>
   </dependencies>
   <!-- 同时打包源码和依赖的jar文件。运行方式 ：assembly:assembly -->
   <build>

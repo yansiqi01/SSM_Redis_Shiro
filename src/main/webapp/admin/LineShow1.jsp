@@ -63,6 +63,7 @@
             });
         });
 
+
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);

@@ -130,7 +130,7 @@
                     }
                 },
                 error:function(data){
-                    layer.msg("太垃圾了");
+                    layer.msg("请输入正确的地址");
                 }
             });
             setTimeout(function(){

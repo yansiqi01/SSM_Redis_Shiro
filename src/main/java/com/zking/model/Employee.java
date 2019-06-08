@@ -1,10 +1,12 @@
 package com.zking.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
 @Data
+@Service
 public class Employee implements Serializable {
     private static final long serialVersionUID = -2277950635615433893L;
     private Integer empId;//员工ID

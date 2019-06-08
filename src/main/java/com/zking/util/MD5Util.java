@@ -1,100 +1,114 @@
 package com.zking.util;
+
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
+
+/**
+ * 生成一个MD5码
+ *
+ * @author Administrator
+ *
+ */
 public class MD5Util {
-    /**
-     * Title: MD5加密 生成32位md5码
-     * Description: TestDemo
-     * @author lu
-     * @date 2016年6月23日 下午2:36:07
-     * @param inStr
-     * @return 返回32位md5码
-     * @throws Exception
-     */
-    public static String md5Encode(String inStr) throws Exception {
-        MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            e.printStackTrace();
-            return "";
+
+    public static String encodePassword(String password) throws UnsupportedEncodingException {
+        if (StringUtils.isEmpty(password)) {
+            return password;
+
         }
-        byte[] byteArray = inStr.getBytes("UTF-8");
-        byte[] md5Bytes = md5.digest(byteArray);
-        StringBuffer hexValue = new StringBuffer();
-        for (int i = 0; i < md5Bytes.length; i++) {
-            int val = ((int) md5Bytes[i]) & 0xff;
-            if (val < 16) {
-                hexValue.append("0");
+        return getMD5(password.getBytes("utf-8"));
+    }
+
+    public static String getMD5(byte[] source) {
+        String s = null;
+        char hexDigits[] = { // 用来将字节转换成 16 进制表示的字符
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(source);
+            byte tmp[] = md.digest(); // MD5 的计算结果是一个 128 位的长整数，
+            // 用字节表示就是 16 个字节
+            char str[] = new char[16 * 2]; // 每个字节用 16 进制表示的话，使用两个字符，
+            // 所以表示成 16 进制需要 32 个字符
+            int k = 0; // 表示转换结果中对应的字符位置
+            for (int i = 0; i < 16; i++) { // 从第一个字节开始，对 MD5 的每一个字节
+                // 转换成 16 进制字符的转换
+                byte byte0 = tmp[i]; // 取第 i 个字节
+                str[k++] = hexDigits[byte0 >>> 4 & 0xf]; // 取字节中高 4 位的数字转换,
+                // >>> 为逻辑右移，将符号位一起右移
+                str[k++] = hexDigits[byte0 & 0xf]; // 取字节中低 4 位的数字转换
             }
-            hexValue.append(Integer.toHexString(val));
-        }
-        return hexValue.toString();
-    }
-    /**
-     * Title: MD5加密
-     * Description: TestDemo
-     * @author lu
-     * @date 2016年6月23日 下午2:43:31
-     * @param inStr
-     * @return
-     */
-    public static String md5(String inStr) {
-        MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance("MD5");
+            s = new String(str); // 换后的结果转换为字符串
+
         } catch (Exception e) {
-            System.out.println(e.toString());
             e.printStackTrace();
-            return "";
         }
-        char[] charArray = inStr.toCharArray();
-        byte[] byteArray = new byte[charArray.length];
-
-        for (int i = 0; i < charArray.length; i++)
-            byteArray[i] = (byte) charArray[i];
-        byte[] md5Bytes = md5.digest(byteArray);
-        StringBuffer hexValue = new StringBuffer();
-        for (int i = 0; i < md5Bytes.length; i++) {
-            int val = ((int) md5Bytes[i]) & 0xff;
-            if (val < 16)
-                hexValue.append("0");
-            hexValue.append(Integer.toHexString(val));
-        }
-        return hexValue.toString();
-
-    }
-
-    /**
-     * Title: 加密解密算法 执行一次加密，两次解密
-     * Description: TestDemo
-     * @author lu
-     * @date 2016年6月23日 下午2:37:29
-     * @param inStr
-     * @return
-     */
-    public static String convertMD5(String inStr) {
-
-        char[] a = inStr.toCharArray();
-        for (int i = 0; i < a.length; i++) {
-            a[i] = (char) (a[i] ^ 't');
-        }
-        String s = new String(a);
         return s;
-
-    }
-    public static String md5Decode(String str) {
-        return convertMD5(convertMD5(str));
     }
 
-    public static void main(String[] args) {
-        String s = new String("13917114404");
-        System.out.println(md5Decode("a6aeb3ffa55fc7d664406af9c3bd0f1b"));
-        System.out.println("原始：" + s);
-        System.out.println("MD5后：" + md5(s));
-        System.out.println("加密的：" + convertMD5(s));
-        System.out.println("解密的：" + convertMD5(convertMD5(s)));
-        System.out.println(md5("13917114404"));
+    public final static String MD5(String inputStr) {
+        // 用于加密的字符
+        char md5String[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        try {
+            // 使用utf-8字符集将此 String 编码为 byte序列，并将结果存储到一个新的 byte数组中
+            byte[] btInput = inputStr.getBytes("utf-8");
+
+            // 信息摘要是安全的单向哈希函数，它接收任意大小的数据，并输出固定长度的哈希值。
+            MessageDigest mdInst = MessageDigest.getInstance("MD5");
+
+            // MessageDigest对象通过使用 update方法处理数据， 使用指定的byte数组更新摘要
+            mdInst.update(btInput);
+
+            // 摘要更新之后，通过调用digest（）执行哈希计算，获得密文
+            byte[] md = mdInst.digest();
+
+            // 把密文转换成十六进制的字符串形式
+            int j = md.length;
+            char str[] = new char[j * 2];
+            int k = 0;
+            for (int i = 0; i < j; i++) { // i = 0
+                byte byte0 = md[i]; // 95
+                str[k++] = md5String[byte0 >>> 4 & 0xf]; // 5
+                str[k++] = md5String[byte0 & 0xf]; // F
+            }
+
+            // 返回经过加密后的字符串
+            return new String(str);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+	public static String encryption(String plain) {
+		String re_md5 = new String();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(plain.getBytes("utf-8"));
+			byte b[] = md.digest();
+
+			int i;
+
+			StringBuffer buf = new StringBuffer("");
+			for (int offset = 0; offset < b.length; offset++) {
+				i = b[offset];
+				if (i < 0)
+					i += 256;
+				if (i < 16)
+					buf.append("0");
+				buf.append(Integer.toHexString(i));
+			}
+
+			       re_md5 = buf.toString();
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return re_md5.toUpperCase();
+
     }
 }

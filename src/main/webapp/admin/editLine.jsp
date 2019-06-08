@@ -35,7 +35,6 @@
         };
         $(function () {
             $("#end").blur(function () {
-                alert("aaa")
                 var begin =  $("#begin").val();
                 var end =  $("#end").val();
                 instance(begin,end);
@@ -119,7 +118,6 @@
         var form = layui.form;
         var layer = parent.layer;
         form.on('submit(formDemo)', function(data){
-            alert($("#deliveryspot").val());
             $.ajax({
                 url:'/editLineAndLinetaile',
                 type:'post',
