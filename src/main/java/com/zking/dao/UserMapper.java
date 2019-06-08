@@ -1,7 +1,6 @@
 package com.zking.dao;
 
 import com.zking.model.Employee;
-import com.zking.model.Power;
 import com.zking.model.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;

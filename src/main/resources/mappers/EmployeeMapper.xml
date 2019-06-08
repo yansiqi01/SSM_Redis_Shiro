@@ -4,9 +4,9 @@
 
 <mapper namespace="com.zking.dao.EmployeeMapper">
 
-    
+
     <!--添加员工-->
-    <insert id="addEmp" keyProperty="EmpId" useGeneratedKeys="true" parameterType="employee">
+    <insert id="addEmp" keyProperty="empId" useGeneratedKeys="true" parameterType="employee">
         insert into employee (emp_name,emp_sex,emp_address,emp_tel,emp_workTime,emp_salary,emp_cardId,deliveryspot_id,emp_fiag)
         values (#{empName},#{empSex},#{empAddress},#{empTel},#{empWorkTime},#{empSalary},#{empCardId},#{deliveryspot.deliveryspotId},#{empFiag});
     </insert>

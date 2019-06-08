@@ -1,18 +1,13 @@
 package com.zking.shiro;
-import com.zking.model.Deliveryspot;
-import com.zking.model.Employee;
 
+import com.zking.model.Employee;
 import com.zking.model.User;
-import com.zking.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.Resource;
 
 /**
  * 后台用户登录
@@ -34,9 +29,7 @@ public class MyRealm extends AuthorizingRealm {
     //认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
         logger.info("===============================执行了认证");
-
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
 
         String uname =(String) authenticationToken.getPrincipal();//获取登录的用户名

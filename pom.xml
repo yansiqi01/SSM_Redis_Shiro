@@ -269,7 +269,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.0</version>
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
@@ -295,31 +294,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.0.2</version>
           <configuration>
             <source>1.7</source>
             <target>1.7</target>
           </configuration>
         </plugin>
-        <plugin>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>2.4</version>
-          <configuration>
-            <attach>true</attach>
-          </configuration>
-          <executions>
-            <execution>
-              <!-- 在maven的compile 阶段就开始打包 -->
-              <phase>compile</phase>
-              <goals>
-                <!-- 源码单独作为一个jar包 -->
-                <goal>jar</goal>
-                <!--源码打进jar包中 类似执行mvn source:jar -->
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>

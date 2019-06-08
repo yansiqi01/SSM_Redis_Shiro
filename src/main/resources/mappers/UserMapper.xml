@@ -44,6 +44,7 @@
         <if test="userPassword!=null">
             and user_password like '%${userPassword}%'
         </if>
+        order by emp_workTime desc
     </select>
 
     <select id="getPowerByUserId" resultType="power">

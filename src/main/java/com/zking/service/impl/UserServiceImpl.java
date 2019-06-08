@@ -2,6 +2,7 @@ package com.zking.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.zking.controller.UserController;
 import com.zking.dao.EmployeeMapper;
 import com.zking.dao.PositionMapper;
 import com.zking.dao.UserMapper;
@@ -10,6 +11,8 @@ import com.zking.model.User;
 import com.zking.service.UserService;
 import com.zking.util.PageBean;
 import com.zking.util.ResultUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,9 @@ import java.util.Map;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+    //声明一个日志
+    private static Logger logger = LogManager.getLogger(UserController.class);
 
 
     @Resource
@@ -101,6 +107,7 @@ public class UserServiceImpl implements UserService {
         try {
             //1.添加员工
             int empCode = employeeMapper.addEmp(employee);
+            logger.info("========================添加员工的员工Id："+employee);
             if(empCode>0){//员工添加成功
                 //添加用户信息
                 user.setEmployee(employee);//员工添加成功购将员工的id添加到用户中

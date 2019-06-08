@@ -1,14 +1,24 @@
 var $;
 var form;
-layui.use(['form','layer','jquery','laydate'],function(){
+//全局定义一次, 加载formSelects
+layui.config({
+    base: '/admin/layui-formSelects/src' //此处路径请自行处理, 可以使用绝对路径
+}).extend({
+    formSelects: 'formSelects-v4'
+});
+layui.use(['form','layer','jquery','laydate','formSelects'],function(){
     var layer = parent.layer === undefined ? layui.layer : parent.layer,laydate = layui.laydate;
     $ = layui.jquery;
     form = layui.form;
+    var formSelects = layui.formSelects;
     form.render();
     laydate.render({
         elem: '#date' //指定元素
         ,max: 'new Date()'
     });
+
+
+
 
     //表单提交
     form.on("submit(demo1)",function(data){

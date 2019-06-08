@@ -10,7 +10,6 @@ import com.zking.service.*;
 import com.zking.util.PageBean;
 import com.zking.util.ResponseUtil;
 import com.zking.util.ResultUtil;
-import org.apache.ibatis.annotations.Param;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -26,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -42,6 +39,7 @@ import java.util.Map;
 public class UserController {
 
     private static final String KEY = "a";
+
 
     //声明一个日志
     private static Logger logger = LogManager.getLogger(UserController.class);
@@ -142,7 +140,6 @@ public class UserController {
      */
     @RequestMapping(value = "/adminLogin",method = RequestMethod.POST)
     public void login(User user,HttpServletResponse response)throws Exception{
-        System.out.println("后台接收数据:"+user);
         Map<String,Object> map = new HashMap<>();
         //1.获得主体
         Subject subject = SecurityUtils.getSubject();
@@ -151,6 +148,8 @@ public class UserController {
         //3.开始认证
         try {
             subject.login(token);
+            User u = (User)subject.getPrincipal();
+            subject.getSession().setAttribute("user",u);//用户放入session
             map.put("code",0);
         } catch (UnknownAccountException uae) {
             // UnknownAccountException账号不存在异常
@@ -187,7 +186,7 @@ public class UserController {
 //        String[] rolesid = request.getParameterValues("rolesid");
         System.out.println("==============================角色信息"+rolesid);
         for (String integer : rolesid) {
-            System.out.println("角色Id："+integer);
+            System.out.println("角色Id = " + integer);
         }
 
         //开始添加
@@ -319,6 +318,34 @@ public class UserController {
     public ResultUtil delUsers(@RequestParam(value = "ids[]") List<Integer> ids){
         return userService.AdminDelUsers(ids);
     }
+
+
+    /**
+     * 获取所有角色信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getPositions")
+    public ResultUtil getPositions(){
+        List<Position> roles = positionService.getRoles();
+        return new ResultUtil(200,"success",roles);
+    }
+
+
+    /**
+     * 后台操作人员退出
+     * @return
+     */
+    private static final String LOGIN_OUT="/admin/login.jsp";
+    @RequestMapping("/loginout")
+    public ModelAndView userLoginout(ModelAndView mv){
+        SecurityUtils.getSubject().logout();//清空用户会话
+        mv.setViewName("redirect:"+LOGIN_OUT);
+        return mv;
+    }
+
+
+
 
 
 

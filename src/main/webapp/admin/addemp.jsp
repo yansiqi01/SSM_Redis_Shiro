@@ -18,13 +18,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">员工账户名</label>
         <div class="layui-input-inline">
-            <input type="text" id="userName" name="userName" lay-verify="title" autocomplete="off" placeholder="员工登录账户" class="layui-input">
+            <input type="text" id="userName" name="userName" lay-verify="required" autocomplete="off" placeholder="员工登录账户" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">登录密码</label>
         <div class="layui-input-inline">
-            <input type="text" name="userPassword" lay-verify="required" placeholder="登录密码" autocomplete="off" class="layui-input">
+            <input type="password" name="userPassword" lay-verify="required" placeholder="登录密码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -49,7 +49,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">员工电话</label>
         <div class="layui-input-inline">
-            <input type="text" name="empTel" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="empTel" lay-verify="phone" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -64,17 +64,18 @@
         <div class="layui-inline">
             <label class="layui-form-label">员工工资</label>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="empSalary" placeholder="￥" autocomplete="off" class="layui-input">
+                <input type="text" lay-verify="number" name="empSalary" placeholder="￥" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">员工身份证</label>
         <div class="layui-input-inline">
-            <input type="text" name="empCardId" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="empCardId" lay-verify="identity" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
 
+    <span style="color: red;font-size: 12px;margin-left: 50px" >员工角色选择之后无法修改</span>
     <div class="layui-form-item">
         <label class="layui-form-label">员工角色</label>
         <div class="layui-input-block">

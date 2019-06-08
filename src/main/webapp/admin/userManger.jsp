@@ -16,8 +16,6 @@
 
 <script type="text/html" id="toolbarDemo">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">删除所选</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
         <button class="layui-btn layui-btn-sm" lay-event="addemp">添加员工</button>
     </div>
 </script>
